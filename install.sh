@@ -2,9 +2,15 @@
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
 # Install Homebrew packages
-brew install trash # Don't permanently delete files, move them to trash!
-brew install coreutils # Update old versions of Bash things
-brew install tree # Draw a recursive tree of file structure
+
+# Don't permanently delete files, move them to trash!
+brew install trash
+# Update old versions of Bash things
+brew install coreutils
+# Replacement for ls
+brew install exa
+# A way better shell
+brew install zsh
 
 # Installs Node.js, NPM and n (package manager) to $HOME/n
 # Install LTS and latest versions
