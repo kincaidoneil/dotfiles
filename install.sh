@@ -22,3 +22,11 @@ npm i -g pure-prompt
 
 # Install Yarn, but don't install Node again
 brew install yarn --without-node
+
+# Copy other config files to home folder
+cp .hyper.js ~
+cp .zshrc ~
+
+# Set ZSH as the default shell
+echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
+chsh -s /usr/local/bin/zsh
