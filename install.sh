@@ -3,14 +3,12 @@
 
 # Install Homebrew packages
 
-# Don't permanently delete files, move them to trash!
-brew install trash
-# Update old versions of Bash things
-brew install coreutils
-# Replacement for ls
-brew install exa
-# A way better shell
-brew install zsh
+# coreutils -- update old versions of Bash things
+# trash -- doesn't permanently delete files
+# exa -- better ls
+# zsh -- way better shell
+# z -- quickly navigate to oft-visited directories
+brew install trash z git coreutils exa zsh zsh-autosuggestions zsh-syntax-highlighting
 
 # Installs Node.js, NPM and n (package manager) to $HOME/n
 # Install LTS and latest versions
