@@ -17,5 +17,8 @@ curl -L https://git.io/n-install | bash -s -- -y lts latest
 # Reinitialize shell
 . ~/.bash_profile
 
+# Install my prompt for ZSH
+npm i -g pure-prompt
+
 # Install Yarn, but don't install Node again
 brew install yarn --without-node
