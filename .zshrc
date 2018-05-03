@@ -10,5 +10,10 @@ autoload -U promptinit; promptinit
 PURE_PROMPT_SYMBOL="➜"
 prompt pure
 
-# Syntax highlighting as I'm typing commands -- really nice
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Syntax highlighting
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Auto suggestions
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Use Z to quickly navigate between directories
+. `brew --prefix`/etc/profile.d/z.sh
