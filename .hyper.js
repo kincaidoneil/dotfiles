@@ -22,6 +22,7 @@ module.exports = {
     // Theme and improved tab bar
     `hyper-chesterish`,
     `hyper-tabs-enhanced`,
+    `hyper-statusline`,
     // Support Hasklig
     `hyper-ligatures`,
     // Scrolling inside nano
