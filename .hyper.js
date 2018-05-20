@@ -2,35 +2,37 @@
 module.exports = {
   config: {
     fontSize: 12,
-    fontFamily: 'Hasklig, Menlo, monospace',
-    // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
+    fontFamily: `Hasklig, 'Source Code Pro', Menlo, monospace`,
     cursorShape: 'BEAM',
     cursorBlink: true,
-    // the shell to run when spawning a new session (i.e. /bin/bash)
-    // if left empty, your system's login shell will be used by default
     shell: '/usr/local/bin/zsh',
-    shellArgs: ['--login'],
-    env: {},
     bell: false,
     copyOnSelect: true,
     hyperTabs: {
+      trafficButtons: false,
       tabIconsColored: true,
       closeAlign: 'right'
-    }
+    },
+    // Change to a better link highlight color
+    termCSS: `
+      x-screen a {
+        color: #BE86E3;
+      }
+    `
   },
   plugins: [
     // Theme and improved tab bar
-    `hyper-chesterish`,
-    `hyper-tabs-enhanced`,
-    `hyper-statusline`,
+    'hyper-chesterish',
+    'hyper-tabs-enhanced',
+    // 'hyper-statusline',
     // Support Hasklig
-    `hyper-ligatures`,
+    'hyper-ligatures',
     // Scrolling inside nano
-    `hyperterm-alternatescroll`,
+    'hyperterm-alternatescroll',
     // Don't run commands automatically on paste & concat to a single line
-    `hyperterm-paste`,
+    'hyperterm-paste',
     // Make links "click-able"
-    `hyperlinks`
+    'hyperlinks'
   ],
   keymaps: {
     'tab:next': 'ctrl+tab',
