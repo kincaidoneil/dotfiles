@@ -3,7 +3,7 @@
 ### Install on Linux
 
 ```bash
-curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh | bash -s
+source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh) || true
 ```
 
 ### Install Homebrew

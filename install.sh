@@ -67,10 +67,11 @@ echo
 # Install LTS and latest versions of Node
 curl -L https://git.io/n-install | bash -s -- -y lts latest
 
+# TODO remove?
 # Reinitialize shell to finish setup
 # (On Ubuntu/Debian, interactive mode is required to source .bashrc: https://github.com/mklement0/n-install#installation-from-github)
 # set -i
-. $HOME/.bashrc
+# . $HOME/.bashrc
 # set +i
 
 npm i -g \
