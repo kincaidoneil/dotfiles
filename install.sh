@@ -69,9 +69,9 @@ curl -L https://git.io/n-install | bash -s -- -y lts latest
 
 # Reinitialize shell to finish setup
 # (On Ubuntu/Debian, interactive mode is required to source .bashrc: https://github.com/mklement0/n-install#installation-from-github)
-set -i
+# set -i
 . $HOME/.bashrc
-set +i
+# set +i
 
 npm i -g \
   pure-prompt \ # Prompt for ZSH
