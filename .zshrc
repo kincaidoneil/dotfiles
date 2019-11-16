@@ -1,4 +1,4 @@
-source /usr/share/zsh-antigen/antigen.zsh
+source ~/.zsh/antigen/antigen.zsh
 
 # Config a better version of ls and tree view
 alias ls="exa -lhmua --group-directories-first"

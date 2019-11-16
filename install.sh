@@ -10,14 +10,6 @@ if [ "$EUID" -ne 0 ]; then
   exit
 fi
 
-echo "Creating new user..."
-echo
-
-id -u kincaid &>/dev/null || adduser kincaid # Add user if I don't already exist
-usermod -aG sudo kincaid
-HOME=/home/kincaid
-cd $HOME
-
 echo "Copying fresh dotfiles..."
 echo
 
@@ -32,12 +24,11 @@ rm -rf \
 
 git clone https://github.com/kincaidoneil/dotfiles
 cd dotfiles
-git checkout ko-linux-refresh # TODO Change to master
+git checkout ko-linux-refresh # TODO Change to master branch
 
 # Create symbolic links for dotfiles
 # Remember: the source path (1st arg) is *relative* to the link's path (2nd arg)!
 # https://unix.stackexchange.com/questions/141436/too-many-levels-of-symbolic-links
-ln -s dotfiles/.ssh $HOME/.ssh
 ln -s dotfiles/.zshrc $HOME/.zshrc
 ln -s dotfiles/.gitconfig $HOME/.gitconfig
 
@@ -58,8 +49,7 @@ apt install -y \
   gnupg2 \
   ssh \
   wget \
-  zsh \
-  zsh-antigen
+  zsh
 
 echo "Installing Node.js..."
 echo
@@ -67,9 +57,9 @@ echo
 # Install LTS and latest versions of Node
 curl -L https://git.io/n-install | bash -s -- -y lts latest
 
-# TODO Why can't I SSH in as my user?
+. ~/.bashrc # TODO Does this work?
 
-$HOME/n/bin/npm i -g \
+npm i -g \
   pure-prompt \
   trash-cli
 
@@ -79,9 +69,13 @@ echo
 # Install Rustup (Rust version management tool) which should auto install Rust & Cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
+. ~/.bashrc # TODO Does this work?
+
 # Install Exa, replacement for `ls`
 # (when available, may want to switch to apt version)
 cargo install exa
+
+# TODO Why can't I SSH in as my user?
 
 # TODO Install Docker and docker-compose
 
@@ -89,8 +83,12 @@ cargo install exa
 
 # TODO Add GPG public key
 
-echo "Setting up ZSH..."
+echo "Installing ZSH..."
 echo
+
+# Install Antigen since apt version doesn't work
+mkdir -p ~/.zsh/antigen
+curl -L git.io/antigen > ~/.zsh/antigen/antigen.zsh
 
 # Set default shell to ZSH
 chsh -s /bin/zsh

@@ -2,8 +2,16 @@
 
 ### Install on Linux
 
+As root user:
+
 ```bash
-source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh) || true
+curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/add-user.sh) | bash -s
+```
+
+Then, as `kincaid` user:
+
+```bash
+curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh) | bash -s
 ```
 
 ### Install Homebrew
