@@ -13,7 +13,7 @@ fi
 echo "Creating new user..."
 echo
 
-adduser kincaid
+id -u kincaid &>/dev/null || adduser kincaid # Add user if I don't exist
 usermod -aG sudo kincaid
 HOME=/home/kincaid
 cd $HOME
