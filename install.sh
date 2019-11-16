@@ -40,11 +40,11 @@ echo "Installing system utilities..."
 echo
 
 apt install -y \
-  build-essential \ # gcc, make
+  build-essential \
   core-utils \
   curl \
   git \
-  gnupg2 \ # PGP
+  gnupg2 \
   ssh \
   wget \
   zsh \
