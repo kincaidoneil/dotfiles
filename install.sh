@@ -22,8 +22,8 @@ echo "Copying dotfiles..."
 echo
 
 git clone https://github.com/kincaidoneil/dotfiles
-git checkout ko-linux-refresh
 cd dotfiles
+git checkout ko-linux-refresh
 
 ln -sf .ssh $HOME/.ssh
 ln -sf .zshrc $HOME/.zshrc
