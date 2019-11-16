@@ -66,21 +66,15 @@ echo
 # Install LTS and latest versions of Node
 curl -L https://git.io/n-install | bash -s -- -y lts latest
 
-npm i -g \
-  pure-prompt \ # Prompt for ZSH
-  trash-cli
-
-echo "Setting up ZSH..."
-echo
-
 # Reinitialize shell to finish setup
 # (On Ubuntu/Debian, interactive mode is required to source .bashrc: https://github.com/mklement0/n-install#installation-from-github)
 set -i
 . $HOME/.bashrc
 set +i
 
-# Set default shell to ZSH
-chsh -s /bin/zsh
+npm i -g \
+  pure-prompt \ # Prompt for ZSH
+  trash-cli
 
 echo "Installing Rust..."
 echo
@@ -97,6 +91,12 @@ cargo install exa
 # TODO Setup SSH and GPG agent forwarding (?)
 
 # TODO Add GPG public key
+
+echo "Setting up ZSH..."
+echo
+
+# Set default shell to ZSH
+chsh -s /bin/zsh
 
 # Spawn new zsh shell
 zsh
