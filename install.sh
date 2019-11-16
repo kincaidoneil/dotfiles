@@ -21,6 +21,8 @@ cd $HOME
 echo "Copying fresh dotfiles..."
 echo
 
+# TODO Error if existing dotfiles exist? Require --force CLI option?
+
 rm -rf dotfiles
 rm -rf \
   $HOME/.ssh \
@@ -46,7 +48,7 @@ echo
 
 apt install -y \
   build-essential \
-  core-utils \
+  coreutils \
   curl \
   git \
   gnupg2 \
