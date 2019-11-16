@@ -8,12 +8,6 @@ PURE_PROMPT_SYMBOL="➜"
 prompt pure
 
 # Syntax highlighting for commands
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+antigen bundle zsh-users/zsh-syntax-highlighting
 # Auto suggestions
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# Use Z to quickly navigate between directories
-. `brew --prefix`/etc/profile.d/z.sh
-
-# Used by n, my Node.js version manager
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+antigen bundle zsh-users/zsh-autosuggestions
