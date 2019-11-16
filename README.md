@@ -1,5 +1,11 @@
 # Kincaid's Config
 
+### Install on Linux
+
+```bash
+source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh)
+```
+
 ### Install Homebrew
 
 ```bash

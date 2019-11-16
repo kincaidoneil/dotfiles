@@ -15,21 +15,25 @@ echo
 
 adduser kincaid
 usermod -aG sudo kincaid
+HOME=/home/kincaid
+cd $HOME
 
-HOME="/home/kincaid"
+echo "Copying dotfiles..."
+echo
+
+git clone https://github.com/kincaidoneil/dotfiles
+git checkout ko-linux-refresh
+cd dotfiles
+
+ln -sf .ssh $HOME/.ssh
+ln -sf .zshrc $HOME/.zshrc
+ln -sf .gitconfig $HOME/.gitconfig
 
 echo "Upgrading..."
 echo
 
 apt-get update || true
 apt-get -y upgrade
-
-echo "Copying dotfiles..."
-echo
-
-ln -sf .ssh $HOME/.ssh
-ln -sf .zshrc $HOME/.zshrc
-ln -sf .gitconfig $HOME/.gitconfig
 
 echo "Installing system utilities..."
 echo
