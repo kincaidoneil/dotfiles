@@ -21,6 +21,7 @@ cd $HOME
 echo "Copying dotfiles..."
 echo
 
+rm -rf dotfiles
 git clone https://github.com/kincaidoneil/dotfiles
 cd dotfiles
 git checkout ko-linux-refresh
@@ -55,6 +56,10 @@ echo
 # Install LTS and latest versions of Node
 curl -L https://git.io/n-install | bash -s -- -y lts latest
 
+npm i -g \
+  pure-prompt \ # Prompt for ZSH
+  trash-cli
+
 echo "Setting up ZSH..."
 echo
 
@@ -63,9 +68,6 @@ echo
 set -i
 . $HOME/.bashrc
 set +i
-
-# Install prompt for ZSH
-npm i -g pure-prompt
 
 # Set default shell to ZSH
 chsh -s /bin/zsh
