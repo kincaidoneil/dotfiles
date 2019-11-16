@@ -13,15 +13,20 @@ fi
 echo "Creating new user..."
 echo
 
-id -u kincaid &>/dev/null || adduser kincaid # Add user if I don't exist
+id -u kincaid &>/dev/null || adduser kincaid # Add user if I don't already exist
 usermod -aG sudo kincaid
 HOME=/home/kincaid
 cd $HOME
 
-echo "Copying dotfiles..."
+echo "Copying fresh dotfiles..."
 echo
 
 rm -rf dotfiles
+rm -rf \
+  $HOME/.ssh \
+  $HOME/.zshrc \
+  $HOME/.gitconfig
+
 git clone https://github.com/kincaidoneil/dotfiles
 cd dotfiles
 git checkout ko-linux-refresh
