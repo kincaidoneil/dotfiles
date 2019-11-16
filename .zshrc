@@ -1,3 +1,5 @@
+source /usr/share/zsh-antigen/antigen.zsh
+
 # Config a better version of ls and tree view
 alias ls="exa -lhmua --group-directories-first"
 alias tree="exa -Ta --git-ignore --ignore-glob=.git --level=3"
