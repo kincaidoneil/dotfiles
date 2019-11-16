@@ -24,10 +24,11 @@ echo
 # TODO Error if existing dotfiles exist? Require --force CLI option?
 
 rm -rf \
-  $HOME/dotfiles \
-  $HOME/.ssh \
-  $HOME/.zshrc \
-  $HOME/.gitconfig
+  dotfiles \
+  n \
+  .ssh \
+  .zshrc \
+  .gitconfig
 
 git clone https://github.com/kincaidoneil/dotfiles
 cd dotfiles
