@@ -32,7 +32,7 @@ rm -rf \
 
 git clone https://github.com/kincaidoneil/dotfiles
 cd dotfiles
-git checkout ko-linux-refresh
+git checkout ko-linux-refresh # TODO Change to master
 
 # Create symbolic links for dotfiles
 # Remember: the source path (1st arg) is *relative* to the link's path (2nd arg)!
@@ -67,15 +67,10 @@ echo
 # Install LTS and latest versions of Node
 curl -L https://git.io/n-install | bash -s -- -y lts latest
 
-# TODO remove?
-# Reinitialize shell to finish setup
-# (On Ubuntu/Debian, interactive mode is required to source .bashrc: https://github.com/mklement0/n-install#installation-from-github)
-# set -i
-# . $HOME/.bashrc
-# set +i
+# TODO Why can't I SSH in as my user?
 
-npm i -g \
-  pure-prompt \ # Prompt for ZSH
+$HOME/n/bin/npm i -g \
+  pure-prompt \
   trash-cli
 
 echo "Installing Rust..."
