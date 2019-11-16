@@ -23,8 +23,8 @@ echo
 
 # TODO Error if existing dotfiles exist? Require --force CLI option?
 
-rm -rf dotfiles
 rm -rf \
+  $HOME/dotfiles \
   $HOME/.ssh \
   $HOME/.zshrc \
   $HOME/.gitconfig
@@ -33,9 +33,12 @@ git clone https://github.com/kincaidoneil/dotfiles
 cd dotfiles
 git checkout ko-linux-refresh
 
-ln -sf .ssh $HOME/.ssh
-ln -sf .zshrc $HOME/.zshrc
-ln -sf .gitconfig $HOME/.gitconfig
+# Create symbolic links for dotfiles
+# Remember: the source path (1st arg) is *relative* to the link's path (2nd arg)!
+# https://unix.stackexchange.com/questions/141436/too-many-levels-of-symbolic-links
+ln -s dotfiles/.ssh $HOME/.ssh
+ln -s dotfiles/.zshrc $HOME/.zshrc
+ln -s dotfiles/.gitconfig $HOME/.gitconfig
 
 echo "Upgrading..."
 echo
