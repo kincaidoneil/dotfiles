@@ -34,13 +34,13 @@ ln -s dotfiles/.gitconfig $HOME/.gitconfig
 echo "Upgrading..."
 echo
 
-apt-get update || true
-apt-get -y upgrade
+sudo apt-get update || true
+sudo apt-get -y upgrade
 
 echo "Installing system utilities..."
 echo
 
-apt install -y \
+sudo apt install -y \
   build-essential \
   coreutils \
   curl \
@@ -61,7 +61,9 @@ curl -L https://git.io/n-install | bash -s -- -y lts latest
 # (.bashrc can only be re-sourced from an interactive shell, but not from a script)
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
-npm i -g trash-cli
+npm i -g \
+  pure-prompt \
+  trash-cli
 
 echo "Installing Rust..."
 echo

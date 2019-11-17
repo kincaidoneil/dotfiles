@@ -13,7 +13,7 @@ source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linu
 Then, as `kincaid` user:
 
 ```bash
-curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh | sudo bash -s
+curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh | bash -s
 ```
 
 ### Install Homebrew

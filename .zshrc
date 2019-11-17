@@ -14,7 +14,3 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 
 # Auto suggestions
 antigen bundle zsh-users/zsh-autosuggestions
-
-# Pure prompt
-antigen bundle mafredri/zsh-async
-antigen bundle sindresorhus/pure
