@@ -47,6 +47,7 @@ apt install -y \
   git \
   gnupg2 \
   ssh \
+  sudo \
   wget \
   zsh
 
@@ -60,9 +61,7 @@ curl -L https://git.io/n-install | bash -s -- -y lts latest
 # (.bashrc can only be re-sourced from an interactive shell, but not from a script)
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
-npm i -g \
-  pure-prompt \
-  trash-cli
+npm i -g trash-cli
 
 echo "Installing Rust..."
 echo
