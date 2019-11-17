@@ -14,8 +14,14 @@ autoload -U promptinit; promptinit
 PURE_PROMPT_SYMBOL="➜"
 prompt pure
 
+# Auto suggestions
+antigen bundle zsh-users/zsh-autosuggestions
+
 # Syntax highlighting for commands
 antigen bundle zsh-users/zsh-syntax-highlighting
 
-# Auto suggestions
-antigen bundle zsh-users/zsh-autosuggestions
+# Node, NPM
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
+# Rust, Cargo
+export PATH="$HOME/.cargo/bin:$PATH"

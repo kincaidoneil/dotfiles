@@ -94,6 +94,3 @@ sudo chsh -s /bin/zsh kincaid
 
 echo "Completed installation."
 echo
-
-# Re-login as me
-su - kincaid
