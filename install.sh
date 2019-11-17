@@ -66,9 +66,8 @@ echo
 # Install Rustup (Rust version management tool) which should auto install Rust & Cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# Add cargo to PATH for in this context
-# (.bashrc can only be re-sourced from an interactive shell, but not from a script)
-export PATH=$PATH:$HOME/.cargo/bin/
+# Source Cargo in this context
+source $HOME/.cargo/env
 
 # Install Exa, replacement for `ls`
 # (when available, may want to switch to apt version)
@@ -88,7 +87,7 @@ mkdir -p ~/.zsh/antigen
 curl -L git.io/antigen > ~/.zsh/antigen/antigen.zsh
 
 # Set default shell to ZSH
-chsh -s /bin/zsh
+sudo chsh -s /bin/zsh
 
 # Spawn new zsh shell
 zsh

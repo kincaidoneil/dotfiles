@@ -4,14 +4,14 @@
 
 TODO Change these to master branch
 
-As root user:
+As `root` user, run:
 
 ```bash
 source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/add-user.sh)
 ```
 
-Then, as `kincaid` user:
-
+Then, as `kincaid`, run:
+```````````````
 ```bash
 curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh | bash -s
 ```
@@ -64,3 +64,4 @@ chsh -s /usr/local/bin/zsh
 ```
 
 ### [Setup Git and commit signing](https://nathanhoad.net/how-to-git-signing-commits/)
+`````````````````````
