@@ -22,7 +22,6 @@ rm -rf \
 
 git clone https://github.com/kincaidoneil/dotfiles
 cd dotfiles
-git checkout ko-linux-refresh # TODO Change to master branch
 
 # Create symbolic links for dotfiles
 # Remember: the source path (1st arg) is *relative* to the link's path (2nd arg)!
@@ -33,13 +32,13 @@ ln -s dotfiles/.gitconfig $HOME/.gitconfig
 echo "Upgrading..."
 echo
 
-apt update || true
-apt -y upgrade
+sudo apt update || true
+sudo apt -y upgrade
 
 echo "Installing system utilities..."
 echo
 
-apt install -y \
+sudo apt install -y \
   build-essential \
   coreutils \
   curl \
@@ -93,7 +92,7 @@ curl -L git.io/antigen > ~/.zsh/antigen/antigen.zsh
 # Set default shell to ZSH
 sudo chsh -s /bin/zsh kincaid
 
-echo "Finished installation."
+echo "Completed installation."
 echo
 
 # Re-login as me

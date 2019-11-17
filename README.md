@@ -2,18 +2,16 @@
 
 ## Install on Linux
 
-TODO Change these to master branch
-
 As `root` user, run:
 
 ```bash
-source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/add-user.sh)
+source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/add-user.sh)
 ```
 
 Then, as `kincaid`, run:
 
 ```bash
-curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh | bash -s
+curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/install.sh | bash -s
 ```
 
 ## Install on Mac
