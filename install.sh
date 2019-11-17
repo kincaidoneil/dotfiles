@@ -13,6 +13,10 @@ echo
 rm -rf \
   dotfiles \
   n \
+  .cargo \
+  .rustup \
+  .npm \
+  .antigen \
   .zshrc \
   .gitconfig
 
