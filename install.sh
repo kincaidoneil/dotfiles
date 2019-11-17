@@ -33,13 +33,13 @@ ln -s dotfiles/.gitconfig $HOME/.gitconfig
 echo "Upgrading..."
 echo
 
-sudo apt-get update || true
-sudo apt-get -y upgrade
+apt-get update || true
+apt-get -y upgrade
 
 echo "Installing system utilities..."
 echo
 
-sudo apt install -y \
+apt install -y \
   build-essential \
   coreutils \
   curl \
