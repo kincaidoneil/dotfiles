@@ -68,7 +68,7 @@ echo "Installing Rust..."
 echo
 
 # Install Rustup (Rust version management tool) which should auto install Rust & Cargo
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- --profile default
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # Source Cargo in this context
 source $HOME/.cargo/env
