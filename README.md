@@ -1,5 +1,21 @@
 # Kincaid's Config
 
+## Install on Linux
+
+As `root` user, run:
+
+```bash
+source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/add-user.sh)
+```
+
+Then, as `kincaid`, run:
+
+```bash
+curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/install.sh | bash -s
+```
+
+## Install on Mac
+
 ### Install Homebrew
 
 ```bash
