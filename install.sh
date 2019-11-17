@@ -33,8 +33,8 @@ ln -s dotfiles/.gitconfig $HOME/.gitconfig
 echo "Upgrading..."
 echo
 
-apt-get update || true
-apt-get -y upgrade
+apt update || true
+apt -y upgrade
 
 echo "Installing system utilities..."
 echo
