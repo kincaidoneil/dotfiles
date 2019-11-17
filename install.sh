@@ -18,7 +18,6 @@ echo
 rm -rf \
   dotfiles \
   n \
-  .ssh \
   .zshrc \
   .gitconfig
 

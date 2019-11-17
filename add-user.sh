@@ -21,3 +21,4 @@ usermod -aG sudo kincaid
 rsync --archive --chown=kincaid:kincaid ~/.ssh /home/kincaid
 
 # Requires a separate script so I can change users for the second script
+# Another option: script ssh's into kincaid user and installs everything?
