@@ -19,3 +19,5 @@ usermod -aG sudo kincaid
 
 # Copy root user's SSH keys to new user account
 rsync --archive --chown=kincaid:kincaid ~/.ssh /home/kincaid
+
+# Requires a separate script so I can change users for the second script

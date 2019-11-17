@@ -2,16 +2,18 @@
 
 ### Install on Linux
 
+TODO Change these to master branch
+
 As root user:
 
 ```bash
-curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/add-user.sh) | bash -s
+source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/add-user.sh)
 ```
 
 Then, as `kincaid` user:
 
 ```bash
-curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh) | bash -s
+curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh | sudo bash -s
 ```
 
 ### Install Homebrew

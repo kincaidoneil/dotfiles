@@ -57,7 +57,9 @@ echo
 # Install LTS and latest versions of Node
 curl -L https://git.io/n-install | bash -s -- -y lts latest
 
-. ~/.bashrc # TODO Does this work?
+# Add Node & npm to path in this context
+# (.bashrc can only be re-sourced from an interactive shell, but not from a script)
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
 npm i -g \
   pure-prompt \
@@ -69,13 +71,13 @@ echo
 # Install Rustup (Rust version management tool) which should auto install Rust & Cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-. ~/.bashrc # TODO Does this work?
+# Add cargo to PATH for in this context
+# (.bashrc can only be re-sourced from an interactive shell, but not from a script)
+export PATH=$PATH:$HOME/.cargo/bin/
 
 # Install Exa, replacement for `ls`
 # (when available, may want to switch to apt version)
 cargo install exa
-
-# TODO Why can't I SSH in as my user?
 
 # TODO Install Docker and docker-compose
 
