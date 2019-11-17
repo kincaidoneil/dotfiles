@@ -87,7 +87,10 @@ mkdir -p ~/.zsh/antigen
 curl -L git.io/antigen > ~/.zsh/antigen/antigen.zsh
 
 # Set default shell to ZSH
-sudo chsh -s /bin/zsh
+sudo chsh -s /bin/zsh kincaid
 
-# Spawn new zsh shell
-zsh
+echo "Finished installation."
+echo
+
+# Re-login as me
+su - kincaid
