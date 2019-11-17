@@ -5,11 +5,6 @@
 set -e # Exit immediately when a command fails
 set -o pipefail # Pipes should also fail immediately
 
-if [ "$EUID" -ne 0 ]; then
-  echo "Please run as root."
-  exit
-fi
-
 echo "Copying fresh dotfiles..."
 echo
 
