@@ -1,6 +1,6 @@
 # Kincaid's Config
 
-### Install on Linux
+## Install on Linux
 
 TODO Change these to master branch
 
@@ -11,10 +11,12 @@ source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linu
 ```
 
 Then, as `kincaid`, run:
-```````````````
+
 ```bash
 curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/ko-linux-refresh/install.sh | bash -s
 ```
+
+## Install on Mac
 
 ### Install Homebrew
 
@@ -64,4 +66,3 @@ chsh -s /usr/local/bin/zsh
 ```
 
 ### [Setup Git and commit signing](https://nathanhoad.net/how-to-git-signing-commits/)
-`````````````````````
