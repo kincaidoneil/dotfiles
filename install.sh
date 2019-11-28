@@ -16,7 +16,6 @@ rm -rf \
   .cargo \
   .rustup \
   .npm \
-  .antigen \
   .zshrc \
   .gitconfig
 
@@ -85,9 +84,8 @@ cargo install exa
 echo "Installing ZSH..."
 echo
 
-# Install Antigen since apt version doesn't work
-mkdir -p ~/.zsh/antigen
-curl -L git.io/antigen > ~/.zsh/antigen/antigen.zsh
+# Install Antibody
+curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
 
 # Set default shell to ZSH
 sudo chsh -s /bin/zsh kincaid

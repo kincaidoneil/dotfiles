@@ -1,4 +1,4 @@
-source ~/.zsh/antigen/antigen.zsh
+source <(antibody init)
 
 # Due to a permissions issue with /usr/local/shared/zsh (?), pure isn't automatically
 # setting up some necessary symbolic links :/
@@ -15,10 +15,10 @@ PURE_PROMPT_SYMBOL="➜"
 prompt pure
 
 # Auto suggestions
-antigen bundle zsh-users/zsh-autosuggestions
+antibody bundle zsh-users/zsh-autosuggestions
 
 # Syntax highlighting for commands
-antigen bundle zsh-users/zsh-syntax-highlighting
+antibody bundle zsh-users/zsh-syntax-highlighting
 
 # Node, NPM
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
