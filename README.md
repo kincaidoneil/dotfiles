@@ -2,27 +2,41 @@
 
 ## Install on Linux
 
-As `root` user, run:
+#### Create new user account as `root`
 
 ```bash
 source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/add-user.sh)
 ```
 
-Then, as `kincaid`, run:
+#### Install packages and settings as `kincaid`
 
 ```bash
 curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/install.sh | bash -s
 ```
 
+#### Import PGP key to configure Git commit signing
+
+```bash
+gpg --import <path>
+```
+
+#### Generate new SSH key
+
+```bash
+ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+```
+
 ## Install on Mac
 
-### Install Homebrew
+#### Install Homebrew
 
 ```bash
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-### Install Homebrew packages
+#### Install Homebrew packages
 
 - _coreutils_: update old versions of Bash things
 - _trash_: doesn't permanently delete files
@@ -34,7 +48,7 @@ curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/install.s
 brew install trash z git make coreutils exa zsh zsh-autosuggestions zsh-syntax-highlighting gnupg pinentry-mac
 ```
 
-### Install Node.js, NPM and n (Node version manager)
+#### Install Node.js, NPM and n (Node version manager)
 
 ```bash
 # Install LTS and latest versions of Node
@@ -43,24 +57,24 @@ curl -L https://git.io/n-install | bash -s -- -y lts latest
 
 Remember to reinitialize shell so it's in the PATH!
 
-### Install ZSH prompt
+#### Install ZSH prompt
 
 ```bash
 npm i -g pure-prompt
 ```
 
-### Copy other configs
+#### Copy other configs
 
 ```bash
 cp .hyper.js ~
 cp .zshrc ~
 ```
 
-### Set ZSH as default shell
+#### Set ZSH as default shell
 
 ```bash
 echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
 chsh -s /usr/local/bin/zsh
 ```
 
-### [Setup Git and commit signing](https://nathanhoad.net/how-to-git-signing-commits/)
+#### [Setup Git and commit signing](https://nathanhoad.net/how-to-git-signing-commits/)
