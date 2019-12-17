@@ -39,10 +39,12 @@ echo
 
 sudo apt install -y \
   build-essential \
+  cmake \
   coreutils \
   curl \
   git \
   gnupg2 \
+  libssl-dev \
   ssh \
   sudo \
   wget \
@@ -72,8 +74,11 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source $HOME/.cargo/env
 
 # Install Exa, replacement for `ls`
+# Install "cargo add" command for Cargo.toml
 # (when available, may want to switch to apt version)
-cargo install exa
+cargo install \
+  exa \
+  cargo-edit
 
 # TODO Install Docker and docker-compose
 
@@ -89,6 +94,13 @@ curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
 
 # Set default shell to ZSH
 sudo chsh -s /bin/zsh kincaid
+
+echo "Installing Yarn..."
+echo
+
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt install yarn
 
 echo "Completed installation."
 echo
