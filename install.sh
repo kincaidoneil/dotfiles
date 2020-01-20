@@ -28,6 +28,10 @@ cd dotfiles
 ln -s dotfiles/.zshrc $HOME/.zshrc
 ln -s dotfiles/.gitconfig $HOME/.gitconfig
 
+# Upgrading sometimes prompts to select a new version of /boot/grub/menu.lst,
+# but my terminal cannot select an option. Override and auto select the default
+export DEBIAN_FRONTEND=noninteractive
+
 echo "Upgrading..."
 echo
 
