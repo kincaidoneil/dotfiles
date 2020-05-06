@@ -20,6 +20,9 @@ antibody bundle zsh-users/zsh-autosuggestions
 # Syntax highlighting for commands
 antibody bundle zsh-users/zsh-syntax-highlighting
 
+# For `z` to quickly switch between commonly used directories
+antibody bundle agkozak/zsh-z
+
 # Node, NPM
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
@@ -33,3 +36,15 @@ export GPG_TTY=$(tty)
 # Enable Ctrl + arrow keys to navigate words
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+
+# Export helper to stop and remove all running Docker containers
+function docker-clean {
+  running_containers=`docker ps -q`
+  if [[ -z "$running_containers" ]]
+  then
+    echo "No Docker containers running."
+  else
+    docker stop `docker ps -q`
+    docker rm `docker ps -a -q`
+  fi
+}
