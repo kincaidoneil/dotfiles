@@ -29,3 +29,7 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # Fix issues with GPG signing:
 # https://github.com/keybase/keybase-issues/issues/2798
 export GPG_TTY=$(tty)
+
+# Enable Ctrl + arrow keys to navigate words
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
