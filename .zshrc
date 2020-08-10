@@ -36,6 +36,9 @@ export GPG_TTY=$(tty)
 # Enable Ctrl + arrow keys to navigate words
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
+# Enable Ctrl + backspace to delete the previous words
+bindkey '^H' backward-kill-word
+bindkey '5~' kill-word
 
 # Export helper to stop and remove all running Docker containers
 function docker-clean {
