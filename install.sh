@@ -103,5 +103,13 @@ curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 sudo apt install --no-install-recommends yarn
 
+echo "Installing ngrok..."
+echo
+
+curl https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-`dpkg --print-architecture`.zip --output ngrok-download
+unzip ngrok-download
+sudo mv ngrok-download /usr/local/bin
+trash ngrok-download
+
 echo "Completed installation."
 echo
