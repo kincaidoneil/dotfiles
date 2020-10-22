@@ -47,6 +47,7 @@ sudo apt install -y \
   libssl-dev \
   ssh \
   sudo \
+  unzip \
   wget \
   zsh
 
