@@ -111,5 +111,15 @@ unzip ngrok-download
 sudo mv ngrok-download /usr/local/bin
 trash ngrok-download
 
+if [ "$DIGITAL_OCEAN" = "1" ] ; then
+  echo "Installing DigitalOcean metrics..."
+  echo
+
+  curl -sSL https://repos.insights.digitalocean.com/install.sh -o /tmp/install.sh
+  sudo bash /tmp/install.sh
+  /opt/digitalocean/bin/do-agent --version
+  trash /tmp/install.sh
+fi
+
 echo "Completed installation."
 echo

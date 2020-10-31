@@ -14,6 +14,8 @@ source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/
 curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/install.sh | bash -s
 ```
 
+**Note**: if running on a DigitalOcean droplet, run with the environment variable `DIGITAL_OCEAN=1` to also install metrics.
+
 #### Import PGP key to configure Git commit signing
 
 ```bash
