@@ -42,6 +42,7 @@ sudo apt install -y \
   cmake \
   coreutils \
   curl \
+  exa \ `# Replacement for ls`
   git \
   gnupg2 \
   libssl-dev \
@@ -71,20 +72,8 @@ echo
 # Install Rustup (Rust version management tool) which should auto install Rust & Cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-# Source Cargo in this context
-source $HOME/.cargo/env
-
-# Install Exa, replacement for `ls`
-# Install "cargo add" command for Cargo.toml
-# (when available, may want to switch to apt version)
-cargo install \
-  exa \
-  cargo-edit
-
 # TODO Install Docker and docker-compose
-
 # TODO Setup SSH and GPG agent forwarding (?)
-
 # TODO Add GPG public key
 
 echo "Installing ZSH..."
