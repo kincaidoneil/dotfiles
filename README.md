@@ -22,12 +22,27 @@ curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/install.s
 gpg --import <path>
 ```
 
-#### Generate new SSH key
+## Set up new clients
+
+#### Generate SSH key
 
 ```bash
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
+```
+
+Then, add `~/.ssh/id_ed25519.pub` on client on a newline in the `~/.ssh/authorized_keys` file on the server. Refer to [this article](https://cryptsus.com/blog/how-to-secure-your-ssh-server-with-public-key-elliptic-curve-ed25519-crypto.html) for more background.
+
+#### Add SSH config
+
+To simplify connecting, add the server as an entry in the `~/.ssh/config` file on the client:
+
+```
+Host <NAME>
+  HostName <IP_ADDRESS>
+  ForwardAgent yes
+  UseKeychain yes
 ```
 
 ## Install on Mac
