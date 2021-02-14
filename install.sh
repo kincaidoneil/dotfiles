@@ -8,8 +8,6 @@ set -o pipefail # Pipes should also fail immediately
 echo "Copying fresh dotfiles..."
 echo
 
-# TODO Error if existing dotfiles exist? Require --force CLI option?
-
 rm -rf \
   dotfiles \
   n \
@@ -32,7 +30,7 @@ echo "Upgrading..."
 echo
 
 sudo apt update || true
-# sudo apt -y upgrade
+sudo apt -y dist-upgrade `# Explanation: https://www.techrepublic.com/article/how-to-tell-the-difference-between-apt-get-upgrade-apt-get-dist-upgrade-and-do-release-upgrade/`
 
 echo "Installing system utilities..."
 echo
@@ -42,14 +40,32 @@ sudo apt install -y \
   cmake \
   coreutils \
   curl \
+  docker.io `# Maintained by Debian. More info: https://stackoverflow.com/questions/45023363/what-is-docker-io-in-relation-to-docker-ce-and-docker-ee/57678382#57678382` \
   git \
   gnupg2 \
   libssl-dev \
+  pkg-config `# Required by Interledger.rs to build OpenSSL` \
+  redis-server \
   ssh \
   sudo \
   unzip \
   wget \
   zsh
+
+echo "Configuring start-up services..."
+echo
+
+# Fix Docker permissions issue: https://superuser.com/questions/835696/how-solve-permission-problems-for-docker-in-ubuntu
+sudo gpasswd -a kincaid docker
+
+# TODO This won't work within WSL
+sudo systemctl start docker
+sudo systemctl enable docker
+
+# Setup Redis per https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04
+sudo sed 's/\nsupervised no/\nsupervised systemd/g' /etc/redis/redis.conf
+# sudo systemctl enable redis-server.service # TODO Do I need this to restart on boot or not...?
+sudo systemctl restart redis.service
 
 echo "Installing Node.js..."
 echo
@@ -63,7 +79,8 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 
 npm i -g \
   pure-prompt \
-  trash-cli
+  trash-cli \
+  yarn
 
 echo "Installing Rust..."
 echo
@@ -81,12 +98,6 @@ cargo install \
   exa \
   cargo-edit
 
-# TODO Install Docker and docker-compose
-
-# TODO Setup SSH and GPG agent forwarding (?)
-
-# TODO Add GPG public key
-
 echo "Installing ZSH..."
 echo
 
@@ -95,13 +106,6 @@ curl -sfL git.io/antibody | sudo sh -s - -b /usr/local/bin
 
 # Set default shell to ZSH
 sudo chsh -s /bin/zsh kincaid
-
-echo "Installing Yarn..."
-echo
-
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-sudo apt install --no-install-recommends yarn
 
 echo "Installing ngrok..."
 echo

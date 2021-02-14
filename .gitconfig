@@ -1,7 +1,7 @@
 [user]
         email = kincaidoneil@users.noreply.github.com
         name = Kincaid O'Neil
-        signingKey = 16666E7D706EB0FF
+        signingKey = 78A7202497262914DCF82B9CD8152F7B23AD996C
 [commit]
         gpgsign = true
 [gpg]
