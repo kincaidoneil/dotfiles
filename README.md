@@ -19,7 +19,15 @@ curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/install.s
 #### Import PGP key to configure Git commit signing
 
 ```bash
-gpg --import <path>
+gpg --import <PATH>
+```
+
+#### Configure ngrok
+
+To save configuration to the `ngrok.yml` file:
+
+```bash
+ngrok authtoken <AUTH_TOKEN>
 ```
 
 ## Set up new clients
