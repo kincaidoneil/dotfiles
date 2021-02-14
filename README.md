@@ -19,10 +19,20 @@ curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/install.s
 #### Import PGP key to configure Git commit signing
 
 ```bash
-gpg --import <path>
+gpg --import <PATH>
 ```
 
-#### Generate new SSH key
+#### Configure ngrok
+
+To save configuration to the `ngrok.yml` file:
+
+```bash
+ngrok authtoken <AUTH_TOKEN>
+```
+
+## Set up new clients
+
+#### Generate SSH key
 
 ```bash
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
@@ -30,53 +40,15 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 ```
 
-## Install on Mac
+Then, add `~/.ssh/id_ed25519.pub` on client on a newline in the `~/.ssh/authorized_keys` file on the server. Refer to [this article](https://cryptsus.com/blog/how-to-secure-your-ssh-server-with-public-key-elliptic-curve-ed25519-crypto.html) for more background.
 
-#### Install Homebrew
+#### Add SSH config
 
-```bash
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+To simplify connecting, add the server as an entry in the `~/.ssh/config` file on the client:
+
 ```
-
-#### Install Homebrew packages
-
-- _coreutils_: update old versions of Bash things
-- _trash_: doesn't permanently delete files
-- _exa_: better ls
-- _zsh_: awesome shell
-- _z_: quickly navigate to oft-visited directories
-
-```bash
-brew install trash z git make coreutils exa zsh zsh-autosuggestions zsh-syntax-highlighting gnupg pinentry-mac
+Host <NAME>
+  HostName <IP_ADDRESS>
+  ForwardAgent yes
+  UseKeychain yes
 ```
-
-#### Install Node.js, NPM and n (Node version manager)
-
-```bash
-# Install LTS and latest versions of Node
-curl -L https://git.io/n-install | bash -s -- -y lts latest
-```
-
-Remember to reinitialize shell so it's in the PATH!
-
-#### Install ZSH prompt
-
-```bash
-npm i -g pure-prompt
-```
-
-#### Copy other configs
-
-```bash
-cp .hyper.js ~
-cp .zshrc ~
-```
-
-#### Set ZSH as default shell
-
-```bash
-echo "/usr/local/bin/zsh" | sudo tee -a /etc/shells
-chsh -s /usr/local/bin/zsh
-```
-
-#### [Setup Git and commit signing](https://nathanhoad.net/how-to-git-signing-commits/)

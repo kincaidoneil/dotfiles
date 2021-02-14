@@ -41,6 +41,7 @@ sudo apt install -y \
   coreutils \
   curl \
   docker.io `# Maintained by Debian. More info: https://stackoverflow.com/questions/45023363/what-is-docker-io-in-relation-to-docker-ce-and-docker-ee/57678382#57678382` \
+  exa \ `# Replacement for ls`
   git \
   gnupg2 \
   libssl-dev \
@@ -87,16 +88,6 @@ echo
 
 # Install Rustup (Rust version management tool) which should auto install Rust & Cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-
-# Source Cargo in this context
-source $HOME/.cargo/env
-
-# Install Exa, replacement for `ls`
-# Install "cargo add" command for Cargo.toml
-# (when available, may want to switch to apt version)
-cargo install \
-  exa \
-  cargo-edit
 
 echo "Installing ZSH..."
 echo
