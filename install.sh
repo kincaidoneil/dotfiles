@@ -103,7 +103,7 @@ echo
 
 curl https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-`dpkg --print-architecture`.zip --output ngrok-download
 unzip ngrok-download
-sudo mv ngrok-download /usr/local/bin
+sudo mv ngrok /usr/local/bin # `ngrok` is the unzipped binary
 trash ngrok-download
 
 if [ "$DIGITAL_OCEAN" = "1" ] ; then
