@@ -63,10 +63,13 @@ sudo gpasswd -a kincaid docker
 sudo systemctl start docker
 sudo systemctl enable docker
 
-# Setup Redis per https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04
+# Setup Redis: https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04
 sudo sed 's/\nsupervised no/\nsupervised systemd/g' /etc/redis/redis.conf
 # sudo systemctl enable redis-server.service # TODO Do I need this to restart on boot or not...?
 sudo systemctl restart redis.service
+
+# Increase file watcher limit to maximum for VS Code: https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+sudo sh -c 'echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf'
 
 echo "Installing Node.js..."
 echo
