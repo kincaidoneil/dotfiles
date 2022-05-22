@@ -1,33 +1,12 @@
-source <(antibody init)
+# Node, NPM
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
-# Due to a permissions issue with /usr/local/shared/zsh (?), pure isn't automatically
-# setting up some necessary symbolic links :/
-# https://github.com/sindresorhus/pure/issues/282#issuecomment-276931410
-fpath+=('/home/kincaid/n/lib/node_modules/pure-prompt/functions')
+# Homebrew (only if directory exists/on Darwin)
+[ -d "/opt/homebrew" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Config a better version of ls and tree view
 alias ls="exa -lhmua --group-directories-first"
 alias tree="exa -Ta --git-ignore --ignore-glob=.git --level=3"
-
-# Load Pure, a clean and simple theme
-autoload -U promptinit; promptinit
-PURE_PROMPT_SYMBOL="➜"
-prompt pure
-
-# Auto suggestions
-antibody bundle zsh-users/zsh-autosuggestions
-
-# Syntax highlighting for commands
-antibody bundle zsh-users/zsh-syntax-highlighting
-
-# For `z` to quickly switch between commonly used directories
-antibody bundle agkozak/zsh-z
-
-# Node, NPM
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
-
-# Rust, Cargo
-export PATH="$HOME/.cargo/bin:$PATH"
 
 # Fix issues with GPG signing:
 # https://github.com/keybase/keybase-issues/issues/2798
@@ -51,3 +30,30 @@ function docker-clean {
     docker rm `docker ps -a -q`
   fi
 }
+
+# Zi initializaiton
+source "$HOME/.zi/bin/zi.zsh"
+autoload -Uz _zi
+(( ${+_comps} )) && _comps[zi]=_zi
+zicompinit
+
+# Auto suggestions
+zi light zsh-users/zsh-autosuggestions
+
+# Syntax highlighting for commands
+zi light zsh-users/zsh-syntax-highlighting
+
+# For `z` to quickly switch between commonly used directories
+zi light agkozak/zsh-z
+
+# Due to a permissions issue with /usr/local/shared/zsh (?), Pure didn't automatically
+# set up some necessary symbolic links: https://github.com/sindresorhus/pure/issues/282#issuecomment-276931410
+fpath+=('/home/kincaid/n/lib/node_modules/pure-prompt/functions')
+
+# Homebrew changed locations on M1, fix Pure so it can reference Zsh: https://github.com/sindresorhus/pure/issues/584#issuecomment-989054653
+fpath+=('/opt/homebrew/share/zsh/site-functions')
+
+# Load Pure, a clean and simple theme
+autoload -U promptinit; promptinit
+PURE_PROMPT_SYMBOL="➜"
+prompt pure

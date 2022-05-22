@@ -5,6 +5,8 @@
 [commit]
         gpgsign = true
 [gpg]
-        program = gpg
+        program = /opt/homebrew/bin/gpg
 [core]
-	editor = code --wait
+        editor = code --wait
+[credential]
+        helper = osxkeychain

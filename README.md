@@ -1,36 +1,41 @@
 # Kincaid's Config
 
-## Install on Linux
+### Install
 
-#### Create new user account as `root`
+For installation on a fresh Linux box, create new user account as `root`:
 
 ```bash
 source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/add-user.sh)
 ```
 
-#### Install packages and settings as `kincaid`
+On Linux or macOS, run install script for packages and settings:
 
 ```bash
 curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/master/install.sh | bash -s
 ```
 
-**Note**: if running on a DigitalOcean droplet, run with the environment variable `DIGITAL_OCEAN=1` to also install metrics.
+Installs packages with `apt` on Debian, or `homebrew` on macOS (\*only supports Apple Silicon as certain Homebrew paths changed).
 
-#### Import PGP key to configure Git commit signing
+If running on a DigitalOcean droplet, run with the environment variable `DIGITAL_OCEAN=1` to also install metrics.
 
-```bash
-gpg --import <PATH>
-```
+#### Configure Git commit signing
 
-#### Configure ngrok
-
-To save configuration to the `ngrok.yml` file:
+Import GPG secret key:
 
 ```bash
-ngrok authtoken <AUTH_TOKEN>
+gpg --import [PATH]
 ```
 
-## Set up new clients
+If the key is expired, GPG may cryptically fail to sign with a `No secret key` error. To extend it:
+
+```bash
+gpg --edit-key [KEY_ID]
+> key 1 # Select subkey, too!
+> expire # Follow prompts to extend expiration
+> save
+```
+
+### Set up new clients
 
 #### Generate SSH key
 
