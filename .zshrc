@@ -1,5 +1,9 @@
-# Node, NPM
+# Add Node and npm to PATH
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
+# Setup Flutter and JDK
+export PATH="$PATH:$HOME/flutter/bin"
+export JAVA_HOME=$(/usr/libexec/java_home)
 
 # Homebrew (only if directory exists/on Darwin)
 [ -d "/opt/homebrew" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -8,8 +12,7 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 alias ls="exa -lhmua --group-directories-first"
 alias tree="exa -Ta --git-ignore --ignore-glob=.git --level=3"
 
-# Fix issues with GPG signing:
-# https://github.com/keybase/keybase-issues/issues/2798
+# Fix issues with GPG signing: https://github.com/keybase/keybase-issues/issues/2798
 export GPG_TTY=$(tty)
 
 # Enable Ctrl + arrow keys to navigate words

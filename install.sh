@@ -89,6 +89,9 @@ if [ "$PLATFORM" = darwin ] ; then
     wget \
     zsh
 
+  # Install Adoptium distribution of JDK
+  brew install --cask temurin
+
   # Source Brew in this shell
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
