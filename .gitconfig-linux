@@ -8,3 +8,5 @@
         program = gpg
 [core]
       editor = code --wait
+[init]
+        defaultBranch = main

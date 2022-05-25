@@ -10,3 +10,5 @@
         editor = code --wait
 [credential]
         helper = osxkeychain
+[init]
+        defaultBranch = main
