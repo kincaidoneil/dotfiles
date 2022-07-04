@@ -9,7 +9,7 @@ platform=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 # Only install dependencies if not running in GitHub Codespace
 if [ ! "$CODESPACES" = true ] ; then
-  if [ "$PLATFORM" = linux ] ; then
+  if [ "$platform" = linux ] ; then
     echo "Upgrading..."
     echo
 
@@ -52,9 +52,12 @@ if [ ! "$CODESPACES" = true ] ; then
 
       # Increase file watcher limit to maximum for VS Code: https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
       sudo sh -c 'echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf'
+
+      # Set default shell to ZSH on Linux
+      sudo chsh -s /bin/zsh kincaid
   fi
 
-  if [ "$PLATFORM" = darwin ] ; then
+  if [ "$platform" = darwin ] ; then
     echo "Installing Homebrew..."
     echo
 
@@ -89,10 +92,6 @@ if [ ! "$CODESPACES" = true ] ; then
     echo "pinentry-program /opt/homebrew/bin/pinentry-mac" > ~/.gnupg/gpg-agent.conf
   fi
 
-  # Only clone dotfiles after installing Git --- that way, doesn't make Git a dependency
-  # In some cases, e.g. GitHub Codespaces, the repo will already be cloned
-  [ ! -d "dotfiles" ] && git clone https://github.com/kincaidoneil/dotfiles
-
   echo "Installing Node.js..."
   echo
 
@@ -109,13 +108,18 @@ if [ ! "$CODESPACES" = true ] ; then
   # Install Rustup (Rust version management tool) which should auto install Rust & Cargo
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-  # Set default shell to ZSH
-  sudo chsh -s /bin/zsh kincaid
+  # Only clone dotfiles after installing Git --- that way, doesn't make Git a dependency
+  # In some environments, e.g. GitHub Codespaces, the repo will already be cloned
+  [ ! -d "$HOME/dotfiles" ] && git clone https://github.com/kincaidoneil/dotfiles
 fi
 
-# Create symbolic links for dotfiles
-ln -s ~/dotfiles/.zshrc ~/.zshrc
-ln -s ~/dotfiles/.gitconfig-$PLATFORM ~/.gitconfig
+# If dotfiles exists in home directory, use that; otherwise, use enclosing folder of the current script
+[ -d "$HOME/dotfiles" ] \
+  && dotfiles_dir=$HOME/dotfiles \
+  || dotfiles_dir=$(dirname "$(readlink -f "$0")")
+
+ln -s $dotfiles_dir/.zshrc ~/.zshrc
+ln -s $dotfiles_dir/.gitconfig-$platform ~/.gitconfig
 
 npm i -g \
   pure-prompt \
