@@ -5,20 +5,7 @@
 set -e # Exit immediately when a command fails
 set -o pipefail # Pipes should also fail immediately
 
-echo "Cleaning up old dotfiles..."
-echo
-
-cd ~
-rm -rf \
-  n \
-  .cargo \
-  .rustup \
-  .npm \
-  .zshrc \
-  .zi \
-  .gitconfig
-
-PLATFORM=$(uname -s | tr '[:upper:]' '[:lower:]')
+platform=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 # Only install dependencies if not running in GitHub Codespace
 if [ ! "$CODESPACES" = true ] ; then

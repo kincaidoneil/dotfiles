@@ -57,3 +57,17 @@ Host <NAME>
   ForwardAgent yes
   UseKeychain yes
 ```
+
+### Cleanup
+
+```bash
+cd ~
+rm -rf \
+ n \
+ .cargo \
+ .rustup \
+ .npm \
+ .zshrc \
+ .zi \
+ .gitconfig
+```
