@@ -113,6 +113,9 @@ if [ ! "$CODESPACES" = true ] ; then
   [ ! -d "$HOME/dotfiles" ] && git clone https://github.com/kincaidoneil/dotfiles
 fi
 
+# Clean up existing dotfiles *only*
+rm ~/.zshrc ~/.gitconfig
+
 # If dotfiles exists in home directory, use that; otherwise, use enclosing folder of the current script
 [ -d "$HOME/dotfiles" ] \
   && dotfiles_dir=$HOME/dotfiles \

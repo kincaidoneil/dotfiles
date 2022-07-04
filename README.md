@@ -67,7 +67,7 @@ rm -rf \
  .cargo \
  .rustup \
  .npm \
- .zshrc \
  .zi \
+ .zshrc \
  .gitconfig
 ```
