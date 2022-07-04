@@ -114,7 +114,7 @@ if [ ! "$CODESPACES" = true ] ; then
 fi
 
 # Clean up existing dotfiles *only*
-rm ~/.zshrc ~/.gitconfig
+rm -f ~/.zshrc ~/.gitconfig
 
 # If dotfiles exists in home directory, use that; otherwise, use enclosing folder of the current script
 [ -d "$HOME/dotfiles" ] \
