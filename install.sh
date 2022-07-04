@@ -127,10 +127,8 @@ if [ ! "$CODESPACES" = true ] ; then
 fi
 
 # Create symbolic links for dotfiles
-# Remember: the source path (1st arg) is *relative* to the link's path (2nd arg)!
-# https://unix.stackexchange.com/questions/141436/too-many-levels-of-symbolic-links
-ln -s dotfiles/.zshrc $HOME/.zshrc
-ln -s dotfiles/.gitconfig-$PLATFORM $HOME/.gitconfig
+ln -s ~/dotfiles/.zshrc ~/.zshrc
+ln -s ~/dotfiles/.gitconfig-$PLATFORM ~/.gitconfig
 
 npm i -g \
   pure-prompt \
