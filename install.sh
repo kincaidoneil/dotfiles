@@ -92,16 +92,6 @@ if [ ! "$CODESPACES" = true ] ; then
     echo "pinentry-program /opt/homebrew/bin/pinentry-mac" > ~/.gnupg/gpg-agent.conf
   fi
 
-  echo "Installing Node.js..."
-  echo
-
-  # Install LTS and latest versions of Node (-y accepts confirm prompt, -n prevents modifying .zshrc, which already references n)
-  curl -L https://git.io/n-install | bash -s -- -y -n lts latest
-
-  # Add Node & npm to path in this context
-  # (.bashrc can only be re-sourced from an interactive shell, but not from a script)
-  export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
-
   echo "Installing Rust..."
   echo
 
@@ -113,6 +103,21 @@ if [ ! "$CODESPACES" = true ] ; then
   [ ! -d "$HOME/dotfiles" ] && git clone https://github.com/kincaidoneil/dotfiles
 fi
 
+echo "Installing Node.js..."
+echo
+
+# Install LTS and latest versions of Node (-y accepts confirm prompt, -n prevents modifying .zshrc, which already references n)
+curl -L https://git.io/n-install | bash -s -- -y -n lts latest
+
+# Add Node & npm to path in this context
+# (.bashrc can only be re-sourced from an interactive shell, but not from a script)
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
+npm i -g \
+  pure-prompt \
+  trash-cli \
+  yarn
+
 # Clean up existing dotfiles *only*
 rm -f ~/.zshrc ~/.gitconfig
 
@@ -123,11 +128,6 @@ rm -f ~/.zshrc ~/.gitconfig
 
 ln -s $dotfiles_dir/.zshrc ~/.zshrc
 ln -s $dotfiles_dir/.gitconfig-$platform ~/.gitconfig
-
-npm i -g \
-  pure-prompt \
-  trash-cli \
-  yarn
 
 echo "Installing ZSH..."
 echo
