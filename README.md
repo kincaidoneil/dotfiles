@@ -1,8 +1,8 @@
-# Kincaid's Config
+## Kincaid's Config
 
-#### Install
+### Install
 
-For installation on a fresh Linux box, create new user account as `root`:
+To install on a fresh Linux box, create new user account as `root`:
 
 ```bash
 source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/add-user.sh)
@@ -17,8 +17,6 @@ curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/install.sh 
 Installs packages with `apt` on Debian, or `brew` on macOS (\*only supports Apple Silicon as some Homebrew paths changed).
 
 If running on a DigitalOcean droplet, run with the environment variable `DIGITAL_OCEAN=1` to also install metrics.
-
-#### Setup SSH and commit signing
 
 Use 1Password to [manage SSH keys](https://developer.1password.com/docs/ssh/) and configure [SSH commit signing](https://developer.1password.com/docs/ssh/git-commit-signing).
 
@@ -40,6 +38,8 @@ gpg --edit-key [KEY_ID]
 > expire # Follow prompts to extend expiration
 > save
 ```
+
+Use an [older revision](https://github.com/kincaidoneil/dotfiles/blob/315dbe3b078480ced80b398e016c152980369c18/.gitconfig-darwin) of `.gitconfig-[PLATFORM]` so Git and GPG place nice, and add the relevant signing key.
 
 #### Generate new SSH key
 
@@ -66,7 +66,7 @@ Host <NAME>
   UseKeychain yes
 ```
 
-#### Cleanup
+### Cleanup
 
 ```bash
 cd ~
