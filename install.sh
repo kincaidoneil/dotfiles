@@ -9,6 +9,13 @@ platform=$(uname -s | tr '[:upper:]' '[:lower:]')
 
 # Only install dependencies if not running in GitHub Codespace
 if [ ! "$CODESPACES" = true ] ; then
+  # Install Homebrew on both Mac & Linux
+
+  echo "Installing Homebrew..."
+  echo
+
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
   if [ "$platform" = linux ] ; then
     echo "Upgrading..."
     echo
@@ -29,7 +36,6 @@ if [ ! "$CODESPACES" = true ] ; then
       git \
       gnupg2 \
       libssl-dev \
-      pkg-config `# Required by Interledger.rs to build OpenSSL` \
       redis-server \
       ssh \
       sudo \
@@ -58,11 +64,6 @@ if [ ! "$CODESPACES" = true ] ; then
   fi
 
   if [ "$platform" = darwin ] ; then
-    echo "Installing Homebrew..."
-    echo
-
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
     echo "Installing Homebrew packages..."
     echo
 
@@ -73,9 +74,12 @@ if [ ! "$CODESPACES" = true ] ; then
       coreutils \
       curl \
       exa \
+      gh `# GitHub CLI` \
       git \
       gpg2 `# gnupg2 is just an alias` \
       make \
+      mkcert `# Tool to sign local certs for development` \
+      openssl `# Updated version of OpenSSL` \
       pinentry-mac \
       unzip \
       wget \
@@ -98,7 +102,7 @@ if [ ! "$CODESPACES" = true ] ; then
   # Install Rustup (Rust version management tool) which should auto install Rust & Cargo
   curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-  # Only clone dotfiles after installing Git --- that way, doesn't make Git a dependency
+  # Only clone dotfiles after installing Git (that way, Git isn't a dependency of this script)
   # In some environments, e.g. GitHub Codespaces, the repo will already be cloned
   [ ! -d "$HOME/dotfiles" ] && git clone https://github.com/kincaidoneil/dotfiles
 fi

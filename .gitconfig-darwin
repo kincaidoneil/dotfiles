@@ -6,9 +6,9 @@
         gpgsign = true
 [gpg]
 	format = ssh
+[gpg "ssh"]
+	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 [core]
         editor = code --wait
 [init]
         defaultBranch = main
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign

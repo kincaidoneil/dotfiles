@@ -8,6 +8,9 @@ export PATH="$PATH:$HOME/flutter/bin"
 # Homebrew (only if directory exists/on Darwin)
 [ -d "/opt/homebrew" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
+# Make OpenSSL available in PATH on Apple Silicon
+[ -d "/opt/homebrew" ] && export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+
 # Config a better version of ls and tree view
 alias ls="exa -lhmua --group-directories-first"
 alias tree="exa -Ta --git-ignore --ignore-glob=.git --level=3"
