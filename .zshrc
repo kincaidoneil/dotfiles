@@ -1,6 +1,12 @@
 # Add Node and npm to PATH
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
+export PNPM_HOME="/Users/kincaid/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
+
+export DENO_INSTALL="/Users/kincaid/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
+
 # Setup Flutter and JDK (intended only for Mac, install script didn't install Java on linux)
 export PATH="$PATH:$HOME/flutter/bin"
 [ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)

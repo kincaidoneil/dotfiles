@@ -7,7 +7,7 @@ set -o pipefail # Pipes should also fail immediately
 
 platform=$(uname -s | tr '[:upper:]' '[:lower:]')
 
-# Only install dependencies if not running in GitHub Codespace
+# Only install dependencies if not running in GitHub Codespaces
 if [ ! "$CODESPACES" = true ] ; then
   # Install Homebrew on both Mac & Linux
 
@@ -36,7 +36,6 @@ if [ ! "$CODESPACES" = true ] ; then
       git \
       gnupg2 \
       libssl-dev \
-      redis-server \
       ssh \
       sudo \
       unzip \
@@ -52,10 +51,6 @@ if [ ! "$CODESPACES" = true ] ; then
       sudo systemctl start docker
       sudo systemctl enable docker
 
-      # Setup Redis: https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-redis-on-ubuntu-20-04
-      sudo sed 's/\nsupervised no/\nsupervised systemd/g' /etc/redis/redis.conf
-      sudo systemctl restart redis.service
-
       # Increase file watcher limit to maximum for VS Code: https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
       sudo sh -c 'echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf'
 
@@ -70,6 +65,7 @@ if [ ! "$CODESPACES" = true ] ; then
     brew update # Update Homebrew and all packages
 
     brew install \
+      cloudflare/cloudflare/cloudflared `# Utility for Cloudflare Tunnels for webhooks` \
       cmake \
       coreutils \
       curl \
@@ -79,6 +75,7 @@ if [ ! "$CODESPACES" = true ] ; then
       gpg2 `# gnupg2 is just an alias` \
       make \
       mkcert `# Tool to sign local certs for development` \
+      ngrok/ngrok/ngrok \
       openssl `# Updated version of OpenSSL` \
       pinentry-mac \
       unzip \
@@ -105,17 +102,22 @@ if [ ! "$CODESPACES" = true ] ; then
   # Only clone dotfiles after installing Git (that way, Git isn't a dependency of this script)
   # In some environments, e.g. GitHub Codespaces, the repo will already be cloned
   [ ! -d "$HOME/dotfiles" ] && git clone https://github.com/kincaidoneil/dotfiles
+
+  echo "Installing Node.js..."
+  echo
+
+  # Install LTS and latest versions of Node (-y accepts confirm prompt, -n prevents modifying .zshrc, which already references n)
+  curl -L https://git.io/n-install | bash -s -- -y -n lts latest
+
+  # Add Node & npm to path in this context
+  # (.bashrc can only be re-sourced from an interactive shell, but not from a script)
+  export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+
+  echo "Installing Deno..."
+  echo
+
+  curl -fsSL https://deno.land/x/install/install.sh | sh
 fi
-
-echo "Installing Node.js..."
-echo
-
-# Install LTS and latest versions of Node (-y accepts confirm prompt, -n prevents modifying .zshrc, which already references n)
-curl -L https://git.io/n-install | bash -s -- -y -n lts latest
-
-# Add Node & npm to path in this context
-# (.bashrc can only be re-sourced from an interactive shell, but not from a script)
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
 npm i -g \
   pure-prompt \
