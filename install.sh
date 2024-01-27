@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Adapted from: https://github.com/jessfraz/dotfiles/blob/master/bin/install.sh
-
 set -e # Exit immediately when a command fails
 set -o pipefail # Pipes should also fail immediately
 
@@ -65,7 +63,6 @@ if [ ! "$CODESPACES" = true ] ; then
     brew update # Update Homebrew and all packages
 
     brew install \
-      cloudflare/cloudflare/cloudflared `# Utility for Cloudflare Tunnels for webhooks` \
       cmake \
       coreutils \
       curl \
@@ -117,9 +114,20 @@ if [ ! "$CODESPACES" = true ] ; then
   echo
 
   curl -fsSL https://deno.land/x/install/install.sh | sh
+
+  echo "Installing Bun..."
+  echo
+
+  curl -fsSL https://bun.sh/install | bash
+
+  echo "Installing pkgx..."
+  echo
+
+  curl -Ssf https://pkgx.sh | sh
 fi
 
 npm i -g \
+  pnpm \
   pure-prompt \
   trash-cli \
   yarn

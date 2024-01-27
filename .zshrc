@@ -1,14 +1,10 @@
 # Add Node and npm to PATH
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
-export PNPM_HOME="/Users/kincaid/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
-
 export DENO_INSTALL="/Users/kincaid/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-# Setup Flutter and JDK (intended only for Mac, install script didn't install Java on linux)
-export PATH="$PATH:$HOME/flutter/bin"
+# Setup JDK (intended only for Mac, install script didn't install Java on linux)
 [ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
 
 # Homebrew (only if directory exists/on Darwin)
@@ -69,3 +65,10 @@ fpath+=('/opt/homebrew/share/zsh/site-functions')
 autoload -U promptinit; promptinit
 PURE_PROMPT_SYMBOL="➜"
 prompt pure
+
+# bun completions
+[ -s "/Users/kincaid/.bun/_bun" ] && source "/Users/kincaid/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

@@ -10,3 +10,5 @@
       editor = code --wait
 [init]
         defaultBranch = main
+[push]
+	autoSetupRemote = true
