@@ -4,9 +4,6 @@ export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PR
 export DENO_INSTALL="/Users/kincaid/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
 
-# Setup JDK (intended only for Mac, install script didn't install Java on linux)
-[ -f /usr/libexec/java_home ] && export JAVA_HOME=$(/usr/libexec/java_home)
-
 # Homebrew (only if directory exists/on Darwin)
 [ -d "/opt/homebrew" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -14,8 +11,8 @@ export PATH="$DENO_INSTALL/bin:$PATH"
 [ -d "/opt/homebrew" ] && export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
 
 # Config a better version of ls and tree view
-alias ls="exa -lhmua --group-directories-first"
-alias tree="exa -Ta --git-ignore --ignore-glob=.git --level=3"
+alias ls="eza -lhmua --group-directories-first"
+alias tree="eza -Ta --git-ignore --ignore-glob=.git --level=3"
 
 # Fix issues with GPG signing: https://github.com/keybase/keybase-issues/issues/2798
 export GPG_TTY=$(tty)
