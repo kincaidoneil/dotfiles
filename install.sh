@@ -30,7 +30,7 @@ if [ ! "$CODESPACES" = true ] ; then
       coreutils \
       curl \
       docker.io `# Maintained by Debian. More info: https://stackoverflow.com/questions/45023363/what-is-docker-io-in-relation-to-docker-ce-and-docker-ee/57678382#57678382` \
-      exa `# Replacement for ls` \
+      eza `# Replacement for ls` \
       git \
       gnupg2 \
       libssl-dev \
@@ -69,7 +69,7 @@ if [ ! "$CODESPACES" = true ] ; then
       cmake \
       coreutils \
       curl \
-      exa \
+      eza \
       gh `# GitHub CLI` \
       git \
       gpg2 `# gnupg2 is just an alias` \
