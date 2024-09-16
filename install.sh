@@ -57,6 +57,9 @@ if [ ! "$CODESPACES" = true ] ; then
   fi
 
   if [ "$platform" = darwin ] ; then
+    # Source Brew in this shell
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  
     echo "Installing Homebrew packages..."
     echo
 
@@ -78,12 +81,6 @@ if [ ! "$CODESPACES" = true ] ; then
       unzip \
       wget \
       zsh
-
-    # Install Adoptium distribution of JDK
-    brew install --cask temurin
-
-    # Source Brew in this shell
-    eval "$(/opt/homebrew/bin/brew shellenv)"
 
     # Configure pinentry-mac so GPG key passwords are stored in macOS keychain
     mkdir -p ~/.gnupg # GnuPG might not be created yet
