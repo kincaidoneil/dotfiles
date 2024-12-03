@@ -1,8 +1,28 @@
 # Add Node and npm to PATH
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
+# Deno
 export DENO_INSTALL="/Users/kincaid/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+
+# Bun completions
+[ -s "/Users/kincaid/.bun/_bun" ] && source "/Users/kincaid/.bun/_bun"
+
+# Bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# pnpm
+export PNPM_HOME="/Users/kincaid/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 # Homebrew (only if directory exists/on Darwin)
 [ -d "/opt/homebrew" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -62,10 +82,3 @@ fpath+=('/opt/homebrew/share/zsh/site-functions')
 autoload -U promptinit; promptinit
 PURE_PROMPT_SYMBOL="➜"
 prompt pure
-
-# bun completions
-[ -s "/Users/kincaid/.bun/_bun" ] && source "/Users/kincaid/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"

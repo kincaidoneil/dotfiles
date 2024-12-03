@@ -59,7 +59,7 @@ if [ ! "$CODESPACES" = true ] ; then
   if [ "$platform" = darwin ] ; then
     # Source Brew in this shell
     eval "$(/opt/homebrew/bin/brew shellenv)"
-  
+
     echo "Installing Homebrew packages..."
     echo
 
@@ -78,6 +78,7 @@ if [ ! "$CODESPACES" = true ] ; then
       ngrok/ngrok/ngrok \
       openssl `# Updated version of OpenSSL` \
       pinentry-mac \
+      pyenv \
       unzip \
       wget \
       zsh
