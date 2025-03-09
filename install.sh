@@ -125,10 +125,10 @@ if [ ! "$CODESPACES" = true ] ; then
 fi
 
 npm i -g \
+  corepack `# Support for other package managers via npm` \
   pnpm \
   pure-prompt \
-  trash-cli \
-  yarn
+  trash-cli
 
 # Clean up existing dotfiles *only*
 rm -f ~/.zshrc ~/.gitconfig
@@ -146,16 +146,6 @@ echo
 
 # Install zi (Zsh plugin manager, Antibody got deprecated and doesn't support M1)
 sh -c "$(curl -fsSL https://git.io/get-zi)" -- -i skip
-
-if [ "$DIGITAL_OCEAN" = "1" ] ; then
-  echo "Installing DigitalOcean metrics..."
-  echo
-
-  curl -sSL https://repos.insights.digitalocean.com/install.sh -o /tmp/install.sh
-  sudo bash /tmp/install.sh
-  /opt/digitalocean/bin/do-agent --version
-  trash /tmp/install.sh
-fi
 
 echo "Completed installation."
 echo

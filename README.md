@@ -14,9 +14,7 @@ On Linux or macOS, run install script for packages and settings:
 curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/install.sh | bash -s
 ```
 
-Installs packages with `apt` on Debian, or `brew` on macOS (\*only supports Apple Silicon as some Homebrew paths changed).
-
-If running on a DigitalOcean droplet, run with the environment variable `DIGITAL_OCEAN=1` to also install metrics.
+Installs packages with `apt` on Debian, or `brew` on macOS.
 
 Use 1Password to [manage SSH keys](https://developer.1password.com/docs/ssh/) and configure [SSH commit signing](https://developer.1password.com/docs/ssh/git-commit-signing).
 
