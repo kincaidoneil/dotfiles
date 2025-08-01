@@ -1,10 +1,6 @@
 # Add Node and npm to PATH
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
-# Deno
-export DENO_INSTALL="/Users/kincaid/.deno"
-export PATH="$DENO_INSTALL/bin:$PATH"
-
 # Bun completions
 [ -s "/Users/kincaid/.bun/_bun" ] && source "/Users/kincaid/.bun/_bun"
 
@@ -19,10 +15,8 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
-# pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+# Claude Code and other things
+export PATH="$HOME/.local/bin:$PATH"
 
 # Homebrew (only if directory exists/on Darwin)
 [ -d "/opt/homebrew" ] && eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -34,9 +28,6 @@ eval "$(pyenv init -)"
 alias ls="eza -lhmua --group-directories-first"
 alias tree="eza -Ta --git-ignore --ignore-glob=.git --level=3"
 
-# Fix issues with GPG signing: https://github.com/keybase/keybase-issues/issues/2798
-export GPG_TTY=$(tty)
-
 # Enable Ctrl + arrow keys to navigate words
 bindkey "^[[1;5C" forward-word
 bindkey "^[[1;5D" backward-word
@@ -46,13 +37,13 @@ bindkey '5~' kill-word
 
 # Export helper to stop and remove all running Docker containers
 function docker-clean {
-  running_containers=`docker ps -q`
+  running_containers=$(docker ps -q)
   if [[ -z "$running_containers" ]]
   then
     echo "No Docker containers running."
   else
-    docker stop `docker ps -q`
-    docker rm `docker ps -a -q`
+    docker stop $(docker ps -q)
+    docker rm $(docker ps -a -q)
   fi
 }
 
@@ -70,13 +61,6 @@ zi light zsh-users/zsh-syntax-highlighting
 
 # For `z` to quickly switch between commonly used directories
 zi light agkozak/zsh-z
-
-# Due to a permissions issue with /usr/local/shared/zsh (?), Pure didn't automatically
-# set up some necessary symbolic links: https://github.com/sindresorhus/pure/issues/282#issuecomment-276931410
-fpath+=('/home/kincaid/n/lib/node_modules/pure-prompt/functions')
-
-# Homebrew changed locations on M1, fix Pure so it can reference Zsh: https://github.com/sindresorhus/pure/issues/584#issuecomment-989054653
-fpath+=('/opt/homebrew/share/zsh/site-functions')
 
 # Load Pure, a clean and simple theme
 autoload -U promptinit; promptinit

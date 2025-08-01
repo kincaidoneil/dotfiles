@@ -78,7 +78,6 @@ if [ ! "$CODESPACES" = true ] ; then
       ngrok/ngrok/ngrok \
       openssl `# Updated version of OpenSSL` \
       pinentry-mac \
-      pyenv \
       unzip \
       wget \
       zsh
@@ -108,11 +107,6 @@ if [ ! "$CODESPACES" = true ] ; then
   # (.bashrc can only be re-sourced from an interactive shell, but not from a script)
   export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
 
-  echo "Installing Deno..."
-  echo
-
-  curl -fsSL https://deno.land/x/install/install.sh | sh
-
   echo "Installing Bun..."
   echo
 
@@ -122,6 +116,11 @@ if [ ! "$CODESPACES" = true ] ; then
   echo
 
   curl -Ssf https://pkgx.sh | sh
+
+  echo "Installing Claude Code..."
+  echo
+
+  curl -fsSL https://claude.ai/install.sh | bash
 fi
 
 npm i -g \
