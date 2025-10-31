@@ -31,22 +31,22 @@ echo
 }
 
 if [ "$platform" = linux ] ; then
-  echo "Upgrading..."
+  echo "Installing system utilities..."
   echo
 
   sudo apt update || true
-  sudo apt -y dist-upgrade `# Explanation: https://www.techrepublic.com/article/how-to-tell-the-difference-between-apt-get-upgrade-apt-get-dist-upgrade-and-do-release-upgrade/`
 
-  echo "Installing system utilities..."
-  echo
+  # Skip dist-upgrade in CI (slow, not needed for testing)
+  if [ "$CI" != "true" ]; then
+    sudo apt -y dist-upgrade
+  fi
 
   sudo apt install -y \
     build-essential \
     cmake \
     coreutils \
     curl \
-    docker.io `# Maintained by Debian. More info: https://stackoverflow.com/questions/45023363/what-is-docker-io-in-relation-to-docker-ce-and-docker-ee/57678382#57678382` \
-    eza `# Replacement for ls` \
+    eza \
     git \
     gnupg2 \
     libssl-dev \
@@ -56,16 +56,15 @@ if [ "$platform" = linux ] ; then
     wget \
     zsh
 
-  echo "Configuring start-up services..."
-  echo
+  # Skip Docker setup in CI (conflicts with pre-installed packages)
+  if [ "$CI" != "true" ]; then
+    sudo apt install -y docker.io
+    sudo gpasswd -a $USER docker
+    sudo systemctl start docker
+    sudo systemctl enable docker
+  fi
 
-  # Fix Docker permissions issue: https://superuser.com/questions/835696/how-solve-permission-problems-for-docker-in-ubuntu
-  sudo gpasswd -a $USER docker
-
-  sudo systemctl start docker
-  sudo systemctl enable docker
-
-  # Increase file watcher limit to maximum for VS Code: https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+  # Increase file watcher limit to maximum for VS Code
   sudo sh -c 'echo "fs.inotify.max_user_watches=524288" >> /etc/sysctl.conf'
 
   # Set default shell to ZSH on Linux

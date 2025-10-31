@@ -1,0 +1,44 @@
+name: Test Install
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove pre-installed Node
+        run: |
+          # macOS
+          sudo rm -f /opt/homebrew/bin/node
+          sudo rm -f /opt/homebrew/bin/npm
+          sudo rm -f /opt/homebrew/bin/npx
+          # Linux
+          sudo rm -f /usr/local/bin/n
+          sudo rm -f /usr/local/bin/node
+          sudo rm -f /usr/local/bin/npm
+          sudo rm -f /usr/local/bin/npx
+
+      - name: Run install script
+        run: bash install.sh
+
+      - name: Verify installations
+        shell: zsh {0}
+        run: |
+          # Check dotfiles are symlinked
+          test -L ~/.zshrc
+          test -L ~/.gitconfig
+
+          # Check key commands exist
+          command -v brew
+          command -v node
+          command -v cargo
+          command -v zsh
