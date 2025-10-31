@@ -7,7 +7,7 @@
 Run the install script to set up packages and dotfiles:
 
 ```bash
-curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/install.sh | bash
+curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/install.sh | bash -s
 ```
 
 This will:
@@ -21,7 +21,7 @@ This will:
 To create a new user account with sudo access:
 
 ```bash
-curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/add-user.sh | bash
+curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/add-user.sh | bash -s
 ```
 
 Then switch to the new user and run the install script above.
