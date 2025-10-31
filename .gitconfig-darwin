@@ -1,16 +1,16 @@
 [user]
-        email = kincaidoneil@users.noreply.github.com
-        name = Kincaid O'Neil
+	email = kincaidoneil@users.noreply.github.com
+	name = Kincaid O'Neil
 	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIA+62vYiqoYgGwJ2TC1CJUlqBfF3iBFwKHFwnVO08gFy
 [commit]
-        gpgsign = true
+	gpgsign = true
 [gpg]
 	format = ssh
 [gpg "ssh"]
 	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
 [core]
-        editor = code --wait
+	editor = code --wait
 [init]
-        defaultBranch = main
+	defaultBranch = main
 [push]
 	autoSetupRemote = true
