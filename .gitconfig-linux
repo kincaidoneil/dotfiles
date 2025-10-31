@@ -1,14 +1,14 @@
 [user]
-        email = kincaidoneil@users.noreply.github.com
-        name = Kincaid O'Neil
-        signingKey = DA3BAC238DFEC340740E4C2E16666E7D706EB0FF
+	email = kincaidoneil@users.noreply.github.com
+	name = Kincaid O'Neil
+	signingKey = DA3BAC238DFEC340740E4C2E16666E7D706EB0FF
 [commit]
-        gpgsign = true
+	gpgsign = true
 [gpg]
-        program = gpg
+	program = gpg
 [core]
-      editor = code --wait
+	editor = code --wait
 [init]
-        defaultBranch = main
+	defaultBranch = main
 [push]
 	autoSetupRemote = true
