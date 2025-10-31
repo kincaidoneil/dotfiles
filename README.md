@@ -1,26 +1,39 @@
-## Kincaid's Config
+## Kincaid's Dotfiles
 
 ### Install
 
-To install on a fresh Linux box, create new user account as `root`:
+#### On macOS or Linux
+
+Run the install script to set up packages and dotfiles:
 
 ```bash
-source <(curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/add-user.sh)
+curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/install.sh | bash
 ```
 
-On Linux or macOS, run install script for packages and settings:
+This will:
+- Install Homebrew (if not present)
+- Install all development tools and runtimes
+- Symlink dotfiles (`.zshrc`, `.gitconfig`)
+- Configure Zsh with plugins
+
+#### On a Fresh Linux Server (as root)
+
+To create a new user account with sudo access:
 
 ```bash
-curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/install.sh | bash -s
+curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/add-user.sh | bash
 ```
 
-Installs packages with `apt` on Debian, or `brew` on macOS.
+Then switch to the new user and run the install script above.
+
+### Authentication
 
 Use 1Password to [manage SSH keys](https://developer.1password.com/docs/ssh/) and configure [SSH commit signing](https://developer.1password.com/docs/ssh/git-commit-signing).
 
-#### Configure GPG commit signing
+<details>
+<summary><strong>Alternative: Manual GPG/SSH Setup (Legacy)</strong></summary>
 
-_(Skip if using 1Password and/or SSH commit signing.)_
+#### Configure GPG Commit Signing
 
 Import GPG secret key:
 
@@ -28,7 +41,7 @@ Import GPG secret key:
 gpg --import [PATH]
 ```
 
-If the key is expired, GPG may cryptically fail to sign with a `No secret key` error. To extend it:
+If the key is expired, extend it:
 
 ```bash
 gpg --edit-key [KEY_ID]
@@ -37,11 +50,9 @@ gpg --edit-key [KEY_ID]
 > save
 ```
 
-Use an [older revision](https://github.com/kincaidoneil/dotfiles/blob/315dbe3b078480ced80b398e016c152980369c18/.gitconfig-darwin) of `.gitconfig-[PLATFORM]` so Git and GPG place nice, and add the relevant signing key.
+You'll need to use an [older revision](https://github.com/kincaidoneil/dotfiles/blob/315dbe3b078480ced80b398e016c152980369c18/.gitconfig-darwin) of `.gitconfig-[PLATFORM]` and manually install GPG tools (`brew install gpg2 pinentry-mac`).
 
-#### Generate new SSH key
-
-_(Prefer using 1Password to generate new keys.)_
+#### Generate New SSH Key
 
 ```bash
 ssh-keygen -o -a 100 -t ed25519 -f ~/.ssh/id_ed25519
@@ -49,13 +60,13 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_ed25519
 ```
 
-#### Add SSH pubkey to remote
+#### Add SSH Pubkey to Remote Server
 
-Add `~/.ssh/id_ed25519.pub` on client on a newline in the `~/.ssh/authorized_keys` file on the server. Refer [here](https://cryptsus.com/blog/how-to-secure-your-ssh-server-with-public-key-elliptic-curve-ed25519-crypto.html) for more background.
+Add `~/.ssh/id_ed25519.pub` contents to `~/.ssh/authorized_keys` on the remote server. See [this guide](https://cryptsus.com/blog/how-to-secure-your-ssh-server-with-public-key-elliptic-curve-ed25519-crypto.html) for more details.
 
-#### Add SSH config
+#### Add SSH Config
 
-To simplify connecting, add the server as an entry in the `~/.ssh/config` file on the client:
+Simplify SSH connections by adding entries to `~/.ssh/config`:
 
 ```
 Host <NAME>
@@ -64,16 +75,4 @@ Host <NAME>
   UseKeychain yes
 ```
 
-### Cleanup
-
-```bash
-cd ~
-rm -rf \
- n \
- .cargo \
- .rustup \
- .npm \
- .zi \
- .zshrc \
- .gitconfig
-```
+</details>
