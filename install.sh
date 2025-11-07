@@ -26,7 +26,7 @@ echo "Installing Homebrew..."
 echo
 
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || {
-  echo "ERROR: Homebrew installation failed - check output above"
+  echo "ERROR: Homebrew installation failed"
   exit 1
 }
 
@@ -72,6 +72,11 @@ if [ "$platform" = linux ] ; then
 fi
 
 if [ "$platform" = darwin ] ; then
+  # Install Xcode command line tools
+  if [ "$CI" != "true" ]; then
+    xcode-select --install
+  fi
+
   # Source Brew in this shell so brew command is available
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
