@@ -35,6 +35,16 @@ function docker-clean {
   docker system prune -af --volumes
 }
 
+function kill-port() {
+  pid=$(lsof -ti :$1)
+  if [ -z "$pid" ]; then
+    echo "No process found on port $1"
+  else
+    kill -9 $pid
+    echo "Process $pid on port $1 killed"
+  fi
+}
+
 # Zi initialization
 source "$HOME/.zi/bin/zi.zsh"
 autoload -Uz _zi
