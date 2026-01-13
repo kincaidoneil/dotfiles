@@ -40,8 +40,8 @@ function kill-port() {
   if [ -z "$pids" ]; then
     echo "No process found on port $1"
   else
-    kill -9 $pids
-    echo "Process(es) on port $1 killed: $pids"
+    echo "$pids" | xargs kill -9
+    echo "Killed processes on port $1: $(echo $pids | tr '\n' ' ')"
   fi
 }
 
