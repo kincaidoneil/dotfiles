@@ -36,12 +36,12 @@ function docker-clean {
 }
 
 function kill-port() {
-  pid=$(lsof -ti :$1)
-  if [ -z "$pid" ]; then
+  pids=$(lsof -ti :$1)
+  if [ -z "$pids" ]; then
     echo "No process found on port $1"
   else
-    kill -9 $pid
-    echo "Process $pid on port $1 killed"
+    kill -9 $pids
+    echo "Process(es) on port $1 killed: $pids"
   fi
 }
 

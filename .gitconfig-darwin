@@ -14,3 +14,6 @@
 	defaultBranch = main
 [push]
 	autoSetupRemote = true
+[gitbutler]
+	diffLengthLimit = 50000
+	aiModelProvider = anthropic

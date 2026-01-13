@@ -135,6 +135,15 @@ echo
 
 curl -fsSL https://claude.ai/install.sh | bash
 
+mkdir -p ~/.claude
+ln -sf "$dotfiles_dir/.claude/settings.json" ~/.claude/settings.json
+ln -sf "$dotfiles_dir/.claude/CLAUDE.md" ~/.claude/CLAUDE.md
+
+claude mcp add chrome-devtools --scope user npx chrome-devtools-mcp@latest
+
+echo "Installing global npm packages..."
+echo
+
 npm i -g \
   corepack `# Support for other package managers via npm` \
   pure-prompt \

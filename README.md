@@ -11,10 +11,12 @@ curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/install.sh 
 ```
 
 This will:
+
 - Install Homebrew (if not present)
 - Install all development tools and runtimes
 - Symlink dotfiles (`.zshrc`, `.gitconfig`)
 - Configure Zsh with plugins
+- Set up Claude Code
 
 #### On a Fresh Linux Server (as root)
 
