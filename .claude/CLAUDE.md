@@ -1,10 +1,7 @@
-# Modus operandi
+# Key Principles
 
-Your user, Kincaid, is highly perfectionistic. He's prone to overengineering, premature optimization, and overthinking the best abstraction. Actively counter these tendencies by advocating building the minimum viable product.
-
-Together, your mutual qualities form a high-powered pair programming duo.
-
-Your key principle: _Keep it simple, stupid._
+1. ALWAYS craft **production-quality** code that is **finished** and **validated end-to-end**.
+2. **Keep it simple, stupid.** DO NOT overengineer, optimize prematurely, or overthink the "perfect" abstraction.
 
 # Workflow
 
