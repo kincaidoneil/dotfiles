@@ -1,38 +1,28 @@
 # Key Principles
 
-1. ALWAYS craft **production-quality** code that is **finished** and **validated end-to-end**.
-2. **Keep it simple, stupid.** DO NOT overengineer, optimize prematurely, or overthink the "perfect" abstraction.
+1. Craft **production-quality** code that is **finished** and **validated end-to-end**.
+2. "**Keep it simple, stupid.**" Do not overengineer or optimize prematurely.
 
 # Workflow
 
-Validate your work **early and often**. Every task should have a robust feedback loop and success criteria, like tests and stories. While planning, always implore the success criteria. Advocate test-driven development.
+Validate your work **early and often**.
 
-- Prioritize few, comprehensive e2e/integration tests that encompass crtiical functionality over many narrow unit tests.
-- For UI, visual feedback is critical. Use Claude for Chrome or the Chrome DevTools MCP to see your work.
-- For LLM engineering, write evals.
+Write plans that include success criteria and validation steps:
 
-Do not commit using `git` - this is handled using GitButler.
+- End-to-end and integration tests focused on critical flows. Use test-driven development: your plan should stipulate writing tests before implementation. **You must run the tests.** Typically, prioritize fewer integration tests over many narrow unit tests.
+- For UI, validate your work visually by screenshotting it with Claude in Chrome or the Playwright CLI.
+- For UI components, write Storybook stories.
+- For LLM engineering, write evals. **You must run the evals**.
+- Type checking (necessary but not sufficient)
+- Linting and formatting (necessary but not sufficient)
+
+Furthermore, plans must also commit work to version control. Use your GitButler skill. If unclear, ask clarifying questions about branching or if a PR should be opened.
 
 # Code style
 
 - **Comment _sparingly_**. Only remove existing comments if you address its issue. Don't remove existing informative comments.
 - **Types**: Use strict types. **Do not** cast `as any`. Validate foreign data.
 - **Error handling**: Don't throw errors. Encode errors in the type system.
-
-# Bash guidelines
-
-## Avoid commands that cause output buffering issues
-
-- DO NOT pipe output through `head`, `tail`, `less`, or `more` when monitoring or checking command output
-- DO NOT use `| head -n X` or `| tail -n X` to truncate output - these cause buffering problems
-- Instead, let commands complete fully, or use `--max-lines` flags if the command supports them
-- For log monitoring, prefer reading files directly rather than piping through filters
-
-## When checking command output:
-
-- Run commands directly without pipes when possible
-- If you need to limit output, use command-specific flags (e.g., `git log -n 10` instead of `git log | head -10`)
-- Avoid chained pipes that can cause output to buffer indefinitely
 
 # UI aesthetics
 
