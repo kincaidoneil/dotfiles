@@ -1,39 +1,31 @@
 ## Kincaid's Dotfiles
 
-### Install
-
-#### On macOS or Linux
-
-Run the install script to set up packages and dotfiles:
+#### Install (macOS, Linux)
 
 ```bash
 curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/install.sh | bash -s
 ```
 
-This will:
+- Installs Homebrew (if not present)
+- Installs development tools and runtimes
+- Symlinks dotfiles (`.zshrc`, `.gitconfig`)
+- Configures Zsh with plugins
+- Sets up Claude Code and agent skills
 
-- Install Homebrew (if not present)
-- Install all development tools and runtimes
-- Symlink dotfiles (`.zshrc`, `.gitconfig`)
-- Configure Zsh with plugins
-- Set up Claude Code and agent skills
+#### Setup on a fresh Linux box
 
-#### On a Fresh Linux Server (as root)
-
-To create a new user account with sudo access:
+Before running the install script, run this as root to create a new sudo account:
 
 ```bash
 curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/add-user.sh | bash -s
 ```
 
-Then switch to the new user and run the install script above.
-
-### Authentication
+#### Keys and signing
 
 Use 1Password to [manage SSH keys](https://developer.1password.com/docs/ssh/) and configure [SSH commit signing](https://developer.1password.com/docs/ssh/git-commit-signing).
 
 <details>
-<summary><strong>Alternative: Manual GPG/SSH Setup (Legacy)</strong></summary>
+<summary>Legacy GPG/SSH setup</summary>
 
 #### Configure GPG Commit Signing
 
