@@ -16,7 +16,7 @@ This will:
 - Install all development tools and runtimes
 - Symlink dotfiles (`.zshrc`, `.gitconfig`)
 - Configure Zsh with plugins
-- Set up Claude Code
+- Set up Claude Code and agent skills
 
 #### On a Fresh Linux Server (as root)
 

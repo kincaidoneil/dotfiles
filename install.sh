@@ -99,16 +99,29 @@ if [ "$platform" = darwin ] ; then
     zsh
 fi
 
-echo "Installing Rust..."
+echo "Cloning dotfiles..."
 echo
-
-# Install Rustup (Rust version management tool) which should auto install Rust & Cargo
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 # Only clone dotfiles after installing Git (that way, Git isn't a dependency of this script)
 if [ ! -d "$HOME/dotfiles" ]; then
   git clone https://github.com/kincaidoneil/dotfiles "$HOME/dotfiles"
 fi
+
+# If dotfiles exists in home directory, use that. Otherwise, use enclosing folder of the current script.
+if [ -d "$HOME/dotfiles" ]; then
+  dotfiles_dir="$HOME/dotfiles"
+else
+  dotfiles_dir=$(cd "$(dirname "$0")" && pwd)
+fi
+
+# Clean up existing dotfiles *only*
+rm -f ~/.zshrc ~/.gitconfig
+
+echo "Installing Rust..."
+echo
+
+# Install Rustup (Rust version management tool) which should auto install Rust & Cargo
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
 echo "Installing Node.js..."
 echo
@@ -135,16 +148,11 @@ echo
 
 curl -fsSL https://claude.ai/install.sh | bash
 
-mkdir -p ~/.claude
-ln -sf "$dotfiles_dir/.claude/settings.json" ~/.claude/settings.json
-ln -sf "$dotfiles_dir/.claude/CLAUDE.md" ~/.claude/CLAUDE.md
-
-claude mcp add chrome-devtools --scope user npx chrome-devtools-mcp@latest
-
 echo "Installing global npm packages..."
 echo
 
 npm i -g \
+  @openai/codex \
   corepack `# Support for other package managers via npm` \
   pure-prompt \
   trash-cli
@@ -152,15 +160,15 @@ npm i -g \
 # Enable corepack to manage pnpm and yarn
 corepack enable
 
-# Clean up existing dotfiles *only*
-rm -f ~/.zshrc ~/.gitconfig
+echo "Setting up symlinks..."
+echo
 
-# If dotfiles exists in home directory, use that; otherwise, use enclosing folder of the current script
-if [ -d "$HOME/dotfiles" ]; then
-  dotfiles_dir="$HOME/dotfiles"
-else
-  dotfiles_dir=$(cd "$(dirname "$0")" && pwd)
-fi
+mkdir -p ~/.claude ~/.agents
+
+ln -sf "$dotfiles_dir/.claude/settings.json" ~/.claude/settings.json
+ln -sf "$dotfiles_dir/.claude/CLAUDE.md" ~/.claude/CLAUDE.md
+ln -sfn "$dotfiles_dir/.claude/skills" ~/.claude/skills
+ln -sfn "$dotfiles_dir/.agents/skills" ~/.agents/skills
 
 ln -sf "$dotfiles_dir/.zshrc" ~/.zshrc
 ln -sf "$dotfiles_dir/.gitconfig-$platform" ~/.gitconfig
@@ -170,6 +178,11 @@ echo
 
 # Install zi (Zsh plugin manager, Antibody got deprecated and doesn't support M1)
 sh -c "$(curl -fsSL get.zshell.dev)" -- -i skip -b main
+
+echo "Installing agent skills..."
+echo
+
+pnpm dlx skills experimental_install
 
 echo "Completed installation."
 echo

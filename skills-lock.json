@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "skills": {
+    "but": {
+      "source": "gitbutlerapp/gitbutler",
+      "sourceType": "github",
+      "computedHash": "8d959265151ded6f550da6cc39c68b1cb773cc66bf1989a6b95921f86a64be66"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "computedHash": "d31e234f0c90694a670222cdd1dafa853e051d7066beda389f1097c22dadd461"
+    },
+    "frontend-design": {
+      "source": "anthropics/skills",
+      "sourceType": "github",
+      "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
+    },
+    "playwright-cli": {
+      "source": "microsoft/playwright-cli",
+      "sourceType": "github",
+      "computedHash": "7075ab30f588019197a2f1518bb4c9d33d69d33352af079b5f9c60303ad3886e"
+    }
+  }
+}
