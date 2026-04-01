@@ -16,6 +16,11 @@
       "sourceType": "github",
       "computedHash": "063a0e6448123cd359ad0044cc46b0e490cc7964d45ef4bb9fd842bd2ffbca67"
     },
+    "logging-best-practices": {
+      "source": "neondatabase/mcp-server-neon",
+      "sourceType": "github",
+      "computedHash": "242eae82807c089740d5e1ca47374edebf000c34b41f737b18ff2c9992b07742"
+    },
     "playwright-cli": {
       "source": "microsoft/playwright-cli",
       "sourceType": "github",
