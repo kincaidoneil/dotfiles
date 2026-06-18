@@ -64,3 +64,16 @@ zi light agkozak/zsh-z
 autoload -U promptinit; promptinit
 PURE_PROMPT_SYMBOL="➜"
 prompt pure
+
+# opencode
+export PATH=/Users/kincaid/.opencode/bin:$PATH
+
+# pnpm
+export PNPM_HOME="/Users/kincaid/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
+# mise
+eval "$(mise activate zsh)"

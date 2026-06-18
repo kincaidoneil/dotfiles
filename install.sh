@@ -163,10 +163,24 @@ corepack enable
 echo "Setting up symlinks..."
 echo
 
-mkdir -p ~/.claude ~/.agents
+mkdir -p ~/.claude ~/.agents ~/.codex
 
 ln -sf "$dotfiles_dir/.claude/settings.json" ~/.claude/settings.json
-ln -sf "$dotfiles_dir/.claude/CLAUDE.md" ~/.claude/CLAUDE.md
+
+# AGENTS.md is the single source of truth. Claude Code reads ~/.claude/CLAUDE.md,
+# Codex and other agents read ~/.codex/AGENTS.md; both point at the same file.
+ln -sf "$dotfiles_dir/AGENTS.md" ~/.claude/CLAUDE.md
+ln -sf "$dotfiles_dir/AGENTS.md" ~/.codex/AGENTS.md
+
+# Replace skills dirs if they exist as real directories from a prior run —
+# otherwise BSD ln drops the link inside them instead of overwriting.
+# Scoped to these two paths only; other files in ~/.claude are left untouched.
+for skills_link in ~/.claude/skills ~/.agents/skills; do
+  if [ -e "$skills_link" ] && [ ! -L "$skills_link" ]; then
+    rm -rf "$skills_link"
+  fi
+done
+
 ln -sfn "$dotfiles_dir/.claude/skills" ~/.claude/skills
 ln -sfn "$dotfiles_dir/.agents/skills" ~/.agents/skills
 
