@@ -63,6 +63,8 @@ zi light agkozak/zsh-z
 # Load Pure, a clean and simple theme
 autoload -U promptinit; promptinit
 PURE_PROMPT_SYMBOL="➜"
+# Skip the per-prompt `git fetch` (network round trip on every enter, ~1-2s in a repo)
+PURE_GIT_PULL=0
 prompt pure
 
 # opencode
