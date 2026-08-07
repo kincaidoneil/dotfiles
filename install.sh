@@ -148,11 +148,15 @@ echo
 
 curl -fsSL https://claude.ai/install.sh | bash
 
+echo "Installing Codex..."
+echo
+
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+
 echo "Installing global npm packages..."
 echo
 
 npm i -g \
-  @openai/codex \
   corepack `# Support for other package managers via npm` \
   pure-prompt \
   trash-cli
