@@ -202,11 +202,5 @@ echo
 
 pnpm dlx skills experimental_install
 
-echo "Installing Claude Code plugins..."
-echo
-
-claude plugin marketplace add obra/superpowers-marketplace
-claude plugin install superpowers@superpowers-marketplace
-
 echo "Completed installation."
 echo
