@@ -167,7 +167,7 @@ corepack enable
 echo "Setting up symlinks..."
 echo
 
-mkdir -p ~/.claude ~/.agents ~/.codex
+mkdir -p ~/.claude ~/.agents ~/.codex ~/.config/git
 
 ln -sf "$dotfiles_dir/.claude/settings.json" ~/.claude/settings.json
 
@@ -190,6 +190,9 @@ ln -sfn "$dotfiles_dir/.agents/skills" ~/.agents/skills
 
 ln -sf "$dotfiles_dir/.zshrc" ~/.zshrc
 ln -sf "$dotfiles_dir/.gitconfig-$platform" ~/.gitconfig
+
+# Git reads ~/.config/git/ignore for every repo, without any gitconfig entry.
+ln -sf "$dotfiles_dir/.gitignore-global" ~/.config/git/ignore
 
 echo "Installing ZSH..."
 echo

@@ -1,0 +1,12 @@
+# Symlinked to ~/.config/git/ignore, which Git reads for every repository.
+# Repo-specific patterns belong in that repo's .gitignore instead.
+
+# macOS
+.DS_Store
+._*
+
+# Editors
+*.swp
+
+# Machine-local agent config
+**/.claude/settings.local.json
