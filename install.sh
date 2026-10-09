@@ -208,5 +208,15 @@ echo
 
 pnpm dlx skills experimental_install
 
+echo "Installing Claude Code plugins..."
+echo
+
+# settings.json registers the marketplaces and enables these, but enabling a
+# plugin never installs it, so a fresh machine needs these lines. --scope user is
+# already the default; it's explicit so an install can never bind to whatever
+# repo this script happens to run from.
+claude plugin install braintrust@braintrust-claude-plugin --scope user --yes
+claude plugin install mattpocock-skills@mattpocock --scope user --yes
+
 echo "Completed installation."
 echo
