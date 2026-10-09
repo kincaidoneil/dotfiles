@@ -169,7 +169,10 @@ echo
 
 mkdir -p ~/.claude ~/.agents ~/.codex ~/.config/git
 
-ln -sf "$dotfiles_dir/.claude/settings.json" ~/.claude/settings.json
+# Tracked outside .claude/ on purpose. This file becomes ~/.claude/settings.json,
+# so if it also sat at .claude/settings.json it would double as this repo's project
+# settings, and every plugin enabled for the user would also install at project scope.
+ln -sf "$dotfiles_dir/claude-settings.json" ~/.claude/settings.json
 
 # AGENTS.md is the single source of truth. Claude Code reads ~/.claude/CLAUDE.md,
 # Codex and other agents read ~/.codex/AGENTS.md; both point at the same file.
