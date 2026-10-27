@@ -45,6 +45,40 @@ function kill-port() {
   fi
 }
 
+# Remove the two eMudhra-compromised roots from /etc/ssl/cert.pem, per
+# https://support.apple.com/en-us/149555. macOS updates can restore them.
+CERT_PEM_ROOTS=(
+  '=== /C=IN/OU=emSign PKI/O=eMudhra Technologies Limited/CN=emSign ECC Root CA - G3'
+  '=== /C=GB/ST=Greater Manchester/L=Salford/O=Comodo CA Limited/CN=AAA Certificate Services'
+)
+function fix-cert-pem {
+  [ -e /etc/ssl/cert.pem.orig ] || sudo cp -p /etc/ssl/cert.pem /etc/ssl/cert.pem.orig || return 1
+  local root t
+  for root in "${CERT_PEM_ROOTS[@]}"; do
+    t=$(mktemp) && awk -v s="$root" '/^(===|###) /{skip=0} $0==s{skip=1} !skip' /etc/ssl/cert.pem > "$t" \
+      && [ -s "$t" ] && sudo install -m 0644 -o root -g wheel "$t" /etc/ssl/cert.pem
+    rm -f "$t"
+  done
+  check-cert-pem && echo "cert.pem: both roots removed."
+}
+function check-cert-pem {
+  ! /usr/bin/openssl crl2pkcs7 -nocrl -certfile /etc/ssl/cert.pem | /usr/bin/openssl pkcs7 -print_certs -noout \
+    | grep -qE 'emSign ECC Root CA - G3|AAA Certificate Services'
+}
+# Recheck only when the file changes; remember its mtime and size once it passes.
+if [[ -r /etc/ssl/cert.pem ]]; then
+  _cert_pem_state="$HOME/.cache/cert-pem-mtime"
+  _cert_pem_mtime=$(stat -f '%m %z' /etc/ssl/cert.pem)
+  if [[ "$(cat "$_cert_pem_state" 2>/dev/null)" != "$_cert_pem_mtime" ]]; then
+    if check-cert-pem; then
+      mkdir -p "${_cert_pem_state:h}" && echo "$_cert_pem_mtime" > "$_cert_pem_state"
+    else
+      print -P "%F{red}WARNING:%f /etc/ssl/cert.pem trusts a compromised eMudhra root again. Run: fix-cert-pem"
+    fi
+  fi
+  unset _cert_pem_state _cert_pem_mtime
+fi
+
 # Zi initialization
 source "$HOME/.zi/bin/zi.zsh"
 autoload -Uz _zi
