@@ -3,17 +3,9 @@
     "defaultMode": "auto"
   },
   "enabledPlugins": {
-    "braintrust@braintrust-claude-plugin": true,
     "mattpocock-skills@mattpocock": true
   },
   "extraKnownMarketplaces": {
-    "braintrust-claude-plugin": {
-      "source": {
-        "source": "github",
-        "repo": "braintrustdata/braintrust-claude-plugin"
-      },
-      "autoUpdate": true
-    },
     "mattpocock": {
       "source": {
         "source": "github",
