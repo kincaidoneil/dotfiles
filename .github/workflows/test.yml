@@ -33,6 +33,11 @@ jobs:
       - name: Verify installations
         shell: zsh {0}
         run: |
+          # Load the PATH a new shell gets, then fail on the first missing check.
+          # Without errexit only the last line decides the step's result.
+          source ~/.zshrc
+          setopt err_exit
+
           # Check dotfiles are symlinked
           test -L ~/.zshrc
           test -L ~/.gitconfig

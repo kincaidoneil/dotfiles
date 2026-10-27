@@ -11,11 +11,13 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # Claude Code and other things
 export PATH="$HOME/.local/bin:$PATH"
 
-# Homebrew (only if directory exists/on Darwin)
+# Homebrew, at its macOS or Linux prefix
 if [ -d "/opt/homebrew" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
   # Make OpenSSL available in PATH on Apple Silicon
   export PATH="/opt/homebrew/opt/openssl@3/bin:$PATH"
+elif [ -d "/home/linuxbrew/.linuxbrew" ]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 # Config a better version of ls and tree view
@@ -66,7 +68,7 @@ function check-cert-pem {
     | grep -qE 'emSign ECC Root CA - G3|AAA Certificate Services'
 }
 # Recheck only when the file changes; remember its mtime and size once it passes.
-if [[ -r /etc/ssl/cert.pem ]]; then
+if [[ $OSTYPE == darwin* && -r /etc/ssl/cert.pem ]]; then
   _cert_pem_state="$HOME/.cache/cert-pem-mtime"
   _cert_pem_mtime=$(stat -f '%m %z' /etc/ssl/cert.pem)
   if [[ "$(cat "$_cert_pem_state" 2>/dev/null)" != "$_cert_pem_mtime" ]]; then
@@ -112,4 +114,4 @@ case ":$PATH:" in
 esac
 
 # mise
-eval "$(mise activate zsh)"
+command -v mise >/dev/null && eval "$(mise activate zsh)"
