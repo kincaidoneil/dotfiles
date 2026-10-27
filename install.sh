@@ -157,12 +157,21 @@ echo "Installing global npm packages..."
 echo
 
 npm i -g \
+  agent-browser `# Browser automation CLI the agent-browser skill drives` \
+  cf `# Cloudflare CLI` \
   corepack `# Support for other package managers via npm` \
+  portless `# Serves local dev at named .localhost URLs instead of ports` \
   pure-prompt \
   trash-cli
 
 # Enable corepack to manage pnpm and yarn
 corepack enable
+
+# The CLI ships without a browser. Skipped in CI, where nothing drives it and the
+# Chromium download costs more than the coverage is worth.
+if [ "$CI" != "true" ]; then
+  agent-browser install
+fi
 
 echo "Setting up symlinks..."
 echo
@@ -178,6 +187,20 @@ ln -sf "$dotfiles_dir/claude-settings.json" ~/.claude/settings.json
 # Codex and other agents read ~/.codex/AGENTS.md; both point at the same file.
 ln -sf "$dotfiles_dir/AGENTS.md" ~/.claude/CLAUDE.md
 ln -sf "$dotfiles_dir/AGENTS.md" ~/.codex/AGENTS.md
+
+# The skills CLI owns .agents/skills and .claude/skills, so both are gitignored.
+# Skills we maintain ourselves are tracked in skills/ and linked in beside them.
+mkdir -p "$dotfiles_dir/.agents/skills" "$dotfiles_dir/.claude/skills"
+
+for skill in "$dotfiles_dir"/skills/*/; do
+  [ -d "$skill" ] || continue # An empty skills/ leaves the glob unexpanded
+  # A symlink here points into .agents/skills already. Linking it back would
+  # nest a link inside the skills CLI's real directory.
+  [ -L "${skill%/}" ] && continue
+  skill_name=$(basename "$skill")
+  ln -sfn "${skill%/}" "$dotfiles_dir/.agents/skills/$skill_name"
+  ln -sfn "../../.agents/skills/$skill_name" "$dotfiles_dir/.claude/skills/$skill_name"
+done
 
 # Replace skills dirs if they exist as real directories from a prior run —
 # otherwise BSD ln drops the link inside them instead of overwriting.
@@ -217,6 +240,18 @@ echo
 # repo this script happens to run from.
 claude plugin install braintrust@braintrust-claude-plugin --scope user --yes
 claude plugin install mattpocock-skills@mattpocock --scope user --yes
+
+echo "Installing the portless proxy service..."
+echo
+
+# The proxy binds 443, so it needs root, and a detached process manager has no
+# TTY for a sudo prompt. A startup service is the only form that survives
+# `process-compose up -D`. It records the absolute path of the node binary and
+# CLI that installed it, and nothing re-points it after an upgrade, so this runs
+# on every install rather than only the first.
+if [ "$CI" != "true" ]; then
+  portless service install
+fi
 
 echo "Completed installation."
 echo

@@ -42,3 +42,4 @@ jobs:
           command -v node
           command -v cargo
           command -v zsh
+          command -v portless

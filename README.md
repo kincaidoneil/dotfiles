@@ -12,6 +12,8 @@ curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/install.sh 
 - Configures Zsh with plugins
 - Sets up Claude Code and agent skills
 
+Skills come from two places. `skills-lock.json` pins the ones the [skills CLI](https://skills.sh) installs, and `skills/` holds the ones we maintain by hand. The install script links both into `~/.claude/skills` and `~/.agents/skills`, so Claude Code and Codex see the same set.
+
 #### Setup on a fresh Linux box
 
 Before running the install script, run this as root to create a new sudo account:
