@@ -234,10 +234,12 @@ pnpm dlx skills experimental_install
 echo "Installing Claude Code plugins..."
 echo
 
-# settings.json registers the marketplace and enables the plugin, but enabling a
-# plugin never installs it, so a fresh machine needs this line. --scope user is
-# already the default; it's explicit so an install can never bind to whatever
-# repo this script happens to run from.
+# settings.json declares the marketplace and enables the plugin, but on a fresh
+# machine the CLI downloads neither. `marketplace add` fetches the marketplace
+# (and exits 0 if it's already there), then `plugin install` installs from it.
+# --scope user is already the default; it's explicit so an install can never
+# bind to whatever repo this script happens to run from.
+claude plugin marketplace add mattpocock/skills
 claude plugin install mattpocock-skills@mattpocock --scope user --yes
 
 echo "Installing the portless proxy service..."
