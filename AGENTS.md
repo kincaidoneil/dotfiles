@@ -1,85 +1,40 @@
 # Key Principles
 
-1. Craft **production-quality** code that is **finished** and **validated end-to-end**.
-2. "**Keep it simple, stupid.**" Do not overengineer or optimize prematurely.
+- "**Keep it simple, stupid.**" Do not overengineer or optimize prematurely.
 
 # Workflow
 
-Validate your work **early and often**.
+Validate your work early and often:
 
-Write plans that include success criteria and validation steps:
-
-- End-to-end and integration tests focused on critical flows. **You must run the tests.** Integration tests that are as close to prod as possible are more important than narrow unit tests.
-- For UI, validate your work visually by screenshotting it (e.g. using Claude in Chrome, Playwright CLI, or other tools).
+- Write and run end-to-end and integration tests focused on critical flows. One comprehensive, true E2E test beats many narrow unit tests 95% of the time.
+- For UI, validate your work visually by screenshotting it (e.g. using Vercel agent-browser, Playwright CLI, or your preferred tooling).
 - For UI components, write Storybook stories.
-- For LLM engineering, write evals. **You must run the evals**.
+- For LLM engineering, write and run evals.
 - Type checking (necessary but not sufficient)
 - Linting and formatting (necessary but not sufficient)
 
-Furthermore, plans should also commit work to version control. If unclear, ask clarifying questions about branching or if a PR should be opened.
+Commit your work to version control. Shepherd PRs through code review (by humans or other agents) to merged and deployed.
+
+Unless the repo or the user says otherwise, merge PRs by rebasing, not with a merge commit or a squash. An agent that is the only one working on a branch may force-push it (with `--force-with-lease`) to clean up its commit history before merge.
+
+# Memory
+
+**The repo is the source of truth, not agent memory.** Don't record project facts or working preferences in agent memory.
 
 # Writing style
 
-Apply these guidelines to ALL prose: your direct output, code, code comments, documentation, issues, commit messages, PRs, et cetera.
+**Write well.** Load the "unslop" skill if it's available. Apply it to all writing: your output, plans, code, code comments, documentation, AGENTS.md edits, issues, commit messages, PRs, etc. Claude 5.5 and later models can skip loading unslop.
 
-1. **Use simple, elementary language**. Write for a knowledgeable engineer reading this part of the system for the first time, not for someone who already holds the whole model in their head.
-2. **Use active voice**.
-3. **Write complete sentences with a subject and a verb**.
-4. Do NOT write overly information dense "Claude speak" sentences with parentheticals, uncommon abbreviations, excessive shorthands, and unrelated ideas.
+**Remove all mannered prose.** Mannered prose swaps metaphor and flourish for direct statement. "A dial worth turning" instead of "a parameter worth varying"; "this point earns its keep" instead of "this point still matters." The phrases exist to display the writer, not to convey the idea, and readers can tell. They are also imprecise, because metaphors drag in connotations you did not choose. Say what you mean, and use the literal phrase whenever one is available.
 
-## Hard rules
+# Code principles
 
-- **No em dashes.** The pattern to avoid is the LLM connector em-dash: a clause ends, an em-dash appears, a continuation follows. Example to never produce: "Optionally attach a custom domain (e.g. `mcp.example.com`) — update `PUBLIC_BASE_URL` to match the apex." Use a period, colon, semicolon, or new sentence instead. Practically, write zero em-dashes in any output.
-- **No negate-reframe.** Examples to delete on sight: "This isn't X. This is Y.", "Not X. Y.", "Less X, more Y.", "Forget X. This is Y." Any sentence that negates one framing and asserts a corrected one belongs in this category. State the positive claim without the negation.
-- **No noun-only or adjective-only fragment chains in prose.** Examples never to write: "Sparingly.", "Setup, then snap.", "Not a template. Not gospel.", "Wry, dry, occasionally brutal." Write _complete_ sentences with a subject and a verb. Fragments without punctuation for bullets, headings, or single line comments are fine.
-- **No banned phrases** (list below).
-- **No throat-clearing openers** ("In today's...", "When it comes to...", "It's important to note..."). Start where the point starts.
-- **No summary closers** ("In conclusion", "Overall", "All in all"). Stop when you're done.
-- **No engagement bait** ("Let that sink in.", "Read that again.", "Full stop.").
+- **Types**: Use strict types. Do not cast as any. Validate foreign data.
+- **Error handling**: Thrown errors and promise rejections are antipatterns invisible to static analysis. Instead, return strongly typed error states, modeling success and failure as variants of a return type. Furthermore, only expose errors when callers are expected to vary behavior in response.
+- **Make impossible states impossible.** Design nominal types, state machines, and control flow so there are not dead code paths.
 
-## Banned phrases
+# Tech stack
 
-**Dead AI language**
+If greenfield and not prescribed elsewhere, prefer pnpm, deploying on Vercel, and Next.js or TanStack Start.
 
-- delve, dive into, unpack
-- harness, leverage, utilize
-- landscape (figurative), realm, robust
-- game-changer, cutting-edge, straightforward
-- seamless, transformative, foster
-- navigate (figurative), underscore, bolster, tapestry
-- nuanced (as filler), pivotal, testament
-- in today's [anything]
-- it's important to note, it's worth noting
-- in order to
-- I'd be happy to help
-
-**Dead transitions**
-
-- furthermore, additionally, moreover
-- moving forward, at the end of the day
-- to put this in perspective
-- what makes this particularly interesting is
-- the implications here are
-- in other words, it goes without saying
-
-**AI cringe**
-
-- supercharge, unlock, future-proof
-- 10x your productivity
-- the AI revolution, in the age of AI
-
-**Generic insider claims**
-
-- here's the part nobody's talking about
-- what nobody tells you
-- anything with "nobody" or "most people don't realize"
-
-# Code style
-
-- **Comment _sparingly_**. Only remove existing comments if you address its issue. Don't remove existing informative comments.
-- **Types**: Use strict types. **Do not** cast `as any`. Validate foreign data.
-- **Error handling**: Don't throw errors. Encode errors in the type system.
-
-# UI aesthetics
-
-**Be bold and creative**. Prefer unique typography, colors, motion, and layouts. Avoid generic and overused font families (Inter, system fonts), cliché color palettes (like purple gradients on white backgrounds) and predictable startup landing page layouts.
+When interacting with Cloudflare, use the `cf` CLI unless the project has a Wrangler configuration file.
