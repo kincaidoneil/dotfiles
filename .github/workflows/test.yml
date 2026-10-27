@@ -33,18 +33,17 @@ jobs:
       - name: Verify installations
         shell: zsh {0}
         run: |
-          # Load the PATH a new shell gets, then fail on the first missing check.
-          # Without errexit only the last line decides the step's result.
+          # Load what a new shell loads. No errexit: it would also fire inside
+          # the prompt's hooks and end the step without saying why.
           source ~/.zshrc
-          setopt err_exit
+          fail() { echo "FAIL: $1"; exit 1; }
 
           # Check dotfiles are symlinked
-          test -L ~/.zshrc
-          test -L ~/.gitconfig
+          test -L ~/.zshrc || fail "~/.zshrc is not a symlink"
+          test -L ~/.gitconfig || fail "~/.gitconfig is not a symlink"
 
-          # Check key commands exist
-          command -v brew
-          command -v node
-          command -v cargo
-          command -v zsh
-          command -v portless
+          # Check zi loaded, and key commands exist
+          (( $+functions[zi] )) || fail "zi did not load"
+          for cmd in brew node cargo zsh portless; do
+            command -v $cmd || fail "$cmd is not on PATH"
+          done

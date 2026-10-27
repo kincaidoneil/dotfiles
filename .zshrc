@@ -81,8 +81,11 @@ if [[ $OSTYPE == darwin* && -r /etc/ssl/cert.pem ]]; then
   unset _cert_pem_state _cert_pem_mtime
 fi
 
-# Zi initialization
-source "$HOME/.zi/bin/zi.zsh"
+# Zi initialization. Its installer moved from ~/.zi to ~/.local/share/zi.
+for _zi in "$HOME/.local/share/zi/bin/zi.zsh" "$HOME/.zi/bin/zi.zsh"; do
+  [[ -r $_zi ]] && { source "$_zi"; break; }
+done
+unset _zi
 autoload -Uz _zi
 (( ${+_comps} )) && _comps[zi]=_zi
 zicompinit
