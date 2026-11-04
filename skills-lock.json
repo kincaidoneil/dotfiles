@@ -13,18 +13,6 @@
       "skillPath": "crates/but/skill/SKILL.md",
       "computedHash": "03679a56b0d7e002d8c2fe2e786df1d5e8b7694bb7be541a978e2a2a03360b8b"
     },
-    "find-skills": {
-      "source": "vercel-labs/skills",
-      "sourceType": "github",
-      "skillPath": "skills/find-skills/SKILL.md",
-      "computedHash": "913b9d37d0d54047dd65222bb8c67b2bf04e3cb87dcad1729068d7a8b2c8c396"
-    },
-    "frontend-design": {
-      "source": "anthropics/skills",
-      "sourceType": "github",
-      "skillPath": "skills/frontend-design/SKILL.md",
-      "computedHash": "89496d5dd00f4810205f351759594fc2742bf8eea85a2f2b2d1de59f4bd91576"
-    },
     "impeccable": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
@@ -37,11 +25,11 @@
       "skillPath": ".agents/skills/logging-best-practices/SKILL.md",
       "computedHash": "242eae82807c089740d5e1ca47374edebf000c34b41f737b18ff2c9992b07742"
     },
-    "playwright-cli": {
-      "source": "microsoft/playwright-cli",
+    "next-dev-loop": {
+      "source": "vercel/next.js",
       "sourceType": "github",
-      "skillPath": "skills/playwright-cli/SKILL.md",
-      "computedHash": "56941c3c0464ad22ccdf3ec975fc4bd518c5daea34b73329c232bc1f37f9a6b7"
+      "skillPath": "skills/next-dev-loop/SKILL.md",
+      "computedHash": "68e70a9270eb02cc9c63cb19ce5106772ce4c140242199f4d90c77f6acb56355"
     },
     "vercel-composition-patterns": {
       "source": "vercel-labs/agent-skills",
