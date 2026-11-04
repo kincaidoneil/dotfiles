@@ -23,7 +23,7 @@ Unless the repo or the user says otherwise, merge PRs by rebasing, not with a me
 
 # Writing style
 
-**Write well.** Load the "unslop" skill if it's available. Apply it to all writing: your output, plans, code, code comments, documentation, AGENTS.md edits, issues, commit messages, PRs, etc. Claude 5.5 and later models can skip loading unslop.
+**Write well.** This applies to all writing: your output, plans, code, code comments, documentation, AGENTS.md edits, issues, commit messages, PRs, etc.
 
 **Remove all mannered prose.** Mannered prose swaps metaphor and flourish for direct statement. "A dial worth turning" instead of "a parameter worth varying"; "this point earns its keep" instead of "this point still matters." The phrases exist to display the writer, not to convey the idea, and readers can tell. They are also imprecise, because metaphors drag in connotations you did not choose. Say what you mean, and use the literal phrase whenever one is available.
 
