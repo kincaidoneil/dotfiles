@@ -7,13 +7,13 @@
 Validate your work early and often:
 
 - Write and run end-to-end and integration tests focused on critical flows. One comprehensive, true E2E test beats many narrow unit tests 95% of the time.
-- For UI, validate your work visually by screenshotting it (e.g. using Vercel agent-browser, Playwright CLI, or your preferred tooling).
+- For UI, validate your work visually by screenshotting it (e.g. using Vercel agent-browser or your preferred tooling).
 - For UI components, write Storybook stories.
 - For LLM engineering, write and run evals.
 - Type checking (necessary but not sufficient)
 - Linting and formatting (necessary but not sufficient)
 
-Commit your work to version control. Shepherd PRs through code review (by humans or other agents) to merged and deployed.
+Commit your work to version control. Use GitButler (`but`) only in repositories already set up for it, where `but status` succeeds; elsewhere use plain git. Shepherd PRs through code review (by humans or other agents) to merged and deployed.
 
 Unless the repo or the user says otherwise, merge PRs by rebasing, not with a merge commit or a squash. An agent that is the only one working on a branch may force-push it (with `--force-with-lease`) to clean up its commit history before merge.
 
