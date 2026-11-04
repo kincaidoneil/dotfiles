@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "defaultMode": "auto",
+    "deny": [
+      "Bash(sudo:*)",
+      "Bash(su:*)",
+      "Bash(security:*)",
+      "Bash(git push:*)",
+      "Bash(git * push*)",
+      "Bash(gh pr:*)",
+      "Bash(gh repo:*)",
+      "Bash(gh api -X:*)",
+      "Bash(gh api --method:*)",
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/**)",
+      "Read(~/.config/gh/**)",
+      "Read(~/.netrc)",
+      "Read(**/.env*)",
+      "Edit(~/dotfiles/**)",
+      "Edit(~/.claude/**)",
+      "Edit(~/Library/LaunchAgents/**)",
+      "Bash(gh * pr*)",
+      "Bash(gh * repo*)"
+    ]
+  },
+  "env": {
+    "GIT_CONFIG_COUNT": "2",
+    "GIT_CONFIG_KEY_0": "url.no-push-from-patch-local:///.pushInsteadOf",
+    "GIT_CONFIG_VALUE_0": "https://",
+    "GIT_CONFIG_KEY_1": "url.no-push-from-patch-local:///.pushInsteadOf",
+    "GIT_CONFIG_VALUE_1": "git@"
+  }
+}
