@@ -1,0 +1,13 @@
+# Global mise tools. install.sh links this to ~/.config/mise/config.toml. It is
+# not named mise.toml so mise doesn't also read it as this repo's project config.
+#
+# npm: tools each install into their own directory, so they survive Node
+# upgrades, unlike `npm i -g`, which installs into the active Node's prefix.
+[tools]
+node = "26" # The current LTS line. agent-browser needs 24 or newer.
+pnpm = "latest"
+"npm:agent-browser" = "latest" # Browser automation CLI the agent-browser skill drives
+"npm:cf" = "latest" # Cloudflare CLI
+"npm:portless" = "latest" # Serves local dev at named .localhost URLs instead of ports
+"npm:trash-cli" = "latest"
+"npm:vercel" = "latest"

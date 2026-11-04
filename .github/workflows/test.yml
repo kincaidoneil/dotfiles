@@ -44,6 +44,7 @@ jobs:
 
           # Check zi loaded, and key commands exist
           (( $+functions[zi] )) || fail "zi did not load"
-          for cmd in brew node cargo zsh portless; do
+          (( $+functions[prompt_pure_setup] )) || fail "pure did not load"
+          for cmd in brew node pnpm vercel cargo zsh portless; do
             command -v $cmd || fail "$cmd is not on PATH"
           done

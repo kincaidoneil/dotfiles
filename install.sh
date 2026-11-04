@@ -123,15 +123,24 @@ echo
 # Install Rustup (Rust version management tool) which should auto install Rust & Cargo
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 
-echo "Installing Node.js..."
+echo "Installing mise, Node.js and global CLIs..."
 echo
 
-# Install LTS and latest versions of Node (-y accepts confirm prompt, -n prevents modifying .zshrc, which already references n)
-curl -L https://bit.ly/n-install | bash -s -- -y -n lts latest
+# This script only puts Homebrew on PATH on macOS, so Linux uses mise's installer.
+if [ "$platform" = darwin ]; then
+  brew install mise
+else
+  curl -fsSL https://mise.run | sh
+  export PATH="$HOME/.local/bin:$PATH"
+fi
 
-# Add Node & npm to path in this context
-# (.bashrc can only be re-sourced from an interactive shell, but not from a script)
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
+# mise-config.toml lists Node, pnpm and the global npm CLIs.
+mkdir -p ~/.config/mise
+ln -sf "$dotfiles_dir/mise-config.toml" ~/.config/mise/config.toml
+mise install
+
+# .zshrc activates mise in interactive shells; this script uses its shims.
+export PATH="$HOME/.local/share/mise/shims:$PATH"
 
 echo "Installing Bun..."
 echo
@@ -153,21 +162,7 @@ echo
 
 curl -fsSL https://chatgpt.com/codex/install.sh | sh
 
-echo "Installing global npm packages..."
-echo
-
-npm i -g \
-  agent-browser `# Browser automation CLI the agent-browser skill drives` \
-  cf `# Cloudflare CLI` \
-  corepack `# Support for other package managers via npm` \
-  portless `# Serves local dev at named .localhost URLs instead of ports` \
-  pure-prompt \
-  trash-cli
-
-# Enable corepack to manage pnpm and yarn
-corepack enable
-
-# The CLI ships without a browser. Skipped in CI, where nothing drives it and the
+# The agent-browser CLI ships without a browser. Skipped in CI, where nothing drives it and the
 # Chromium download costs more than the coverage is worth.
 if [ "$CI" != "true" ]; then
   agent-browser install

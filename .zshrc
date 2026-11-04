@@ -1,6 +1,3 @@
-# Add Node and npm to PATH
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"
-
 # Bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
@@ -100,11 +97,11 @@ zi light zsh-users/zsh-syntax-highlighting
 zi light agkozak/zsh-z
 
 # Load Pure, a clean and simple theme
-autoload -U promptinit; promptinit
 PURE_PROMPT_SYMBOL="➜"
 # Skip the per-prompt `git fetch` (network round trip on every enter, ~1-2s in a repo)
 PURE_GIT_PULL=0
-prompt pure
+zi ice pick"async.zsh" src"pure.zsh"
+zi light sindresorhus/pure
 
 # opencode
 export PATH=/Users/kincaid/.opencode/bin:$PATH
