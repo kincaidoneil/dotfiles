@@ -27,6 +27,11 @@ jobs:
           sudo rm -f /usr/local/bin/npm
           sudo rm -f /usr/local/bin/npx
 
+      # install.sh clones main into ~/dotfiles when it's missing and links from
+      # there, which would test main's files instead of this branch's.
+      - name: Use this checkout as ~/dotfiles
+        run: ln -s "$GITHUB_WORKSPACE" ~/dotfiles
+
       - name: Run install script
         run: bash install.sh
 
