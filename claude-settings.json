@@ -22,5 +22,10 @@
       "$defaults",
       "Bash(process-compose:*) in ~/sideby — routine local dev service orchestration (67 uses this project, defined in package.json dev/dev:up/dev:down scripts)"
     ]
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "autoCompactWindow": 400000
+    }
   }
 }
