@@ -17,7 +17,7 @@
       "source": "pbakaus/impeccable",
       "sourceType": "github",
       "skillPath": ".agents/skills/impeccable/SKILL.md",
-      "computedHash": "63f6fa8e8033e7555c6f8eb91f4049eb82b134053a1ebe749a6d014988a4156c"
+      "computedHash": "83a6c49c8c5497676262e125cf2d95c8d66a3df7c639f2a64b14151ae36b95e6"
     },
     "logging-best-practices": {
       "source": "neondatabase/mcp-server-neon",
@@ -29,7 +29,7 @@
       "source": "vercel/next.js",
       "sourceType": "github",
       "skillPath": "skills/next-dev-loop/SKILL.md",
-      "computedHash": "c305c83b726212e0284930c65cded2c4a4ab85f9bfccfa83b62274247fe3580e"
+      "computedHash": "68e70a9270eb02cc9c63cb19ce5106772ce4c140242199f4d90c77f6acb56355"
     },
     "vercel-composition-patterns": {
       "source": "vercel-labs/agent-skills",
