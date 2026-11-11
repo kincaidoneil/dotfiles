@@ -17,6 +17,21 @@ Commit your work to version control. Use GitButler (`but`) only in repositories 
 
 Unless the repo or the user says otherwise, merge PRs by rebasing, not with a merge commit or a squash. An agent that is the only one working on a branch may force-push it (with `--force-with-lease`) to clean up its commit history before merge.
 
+## Suggested multi-agent setup for Claude
+
+This section applies to Claude agents (such as Claude Code), and the model names are Claude models. For large or risky changes, consider splitting the work across agents with separate roles:
+
+- **Owner (the user)** makes decisions and gives the final go or no-go.
+- **Coordinator** (Opus, high effort) plans the work, writes briefs for other agents, lands changes on main, and updates docs. It delegates only when a task needs it:
+  - **Explorer** (Haiku, or Sonnet when the search needs judgment) finds the relevant files and reports them. It does not draw conclusions.
+  - **Builder** (Opus, in its own worktree) writes the code and tests.
+- **Verification** is a script, not a model. It runs the checks locally and against the real dependencies (for example, the production database engine) and saves the output as evidence.
+- **Reviewer** (Fable) reviews the branch and the verification output independently, then approves or requests changes. It is read-only and never pushes.
+
+The sequence: the builder's branch passes verification, the reviewer approves it, the coordinator lands it on main and runs verification again, the reviewer confirms, and then the branch is pushed to origin.
+
+In short: cheaper models find code, Opus writes it, Fable checks it, and the user decides.
+
 # Memory
 
 **The repo is the source of truth, not agent memory.** Don't record project facts or working preferences in agent memory.
