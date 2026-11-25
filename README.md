@@ -45,7 +45,7 @@ To set up a **Claude Code cloud environment** (at claude.ai/code, under the envi
 
    It runs as root before the first session, and later sessions reuse a snapshot of the result. The snapshot is rebuilt when the script changes or after about seven days, so new dotfiles commits arrive within a week, or sooner if you edit the script.
 
-2. **Environment variables:** `AGENT_GITHUB_APP_ID=5911907`, and `AGENT_GITHUB_APP_KEY` set to the output of `op read '<cloud key op:// reference>' | base64`. Use the cloud key, not the local one, so a leaked cloud key can be revoked alone. Anyone who can use the environment can read these values.
+2. **Environment variables:** `AGENT_GITHUB_APP_ID=5911907`, and `AGENT_GITHUB_APP_KEY` set to the output of `op read 'op://Personal/l34oxmpvggsqa4m2l7xt3ave44/57q3crsnuqlt6dmk7pd2ksub54' | base64`, the same key used locally. Anyone who can use the environment can read these values. If the key leaks, generate a new one in the App's settings, replace the file in the same 1Password field (local setups pick it up), paste the new value into each environment, and delete the old key.
 3. **Network access:** the default allowlist (Limited, with package managers) includes `raw.githubusercontent.com`, which the setup script needs.
 
 Two limits of the GitHub proxy that cloud sessions go through:
