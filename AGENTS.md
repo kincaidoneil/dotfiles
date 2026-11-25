@@ -24,7 +24,7 @@ Agents act on GitHub as the `kincaidoneil-agent` GitHub App, so their comments, 
 - **`gh` is wrapped.** `~/dotfiles/agent-bin/gh` gives each `gh` command a 1-hour App token when `AGENT_GITHUB_APP_ID` and `AGENT_GITHUB_APP_KEY` are set. If `which gh` doesn't print that path, run `export PATH="$HOME/dotfiles/agent-bin:$PATH"`.
 - **The App can comment, review, open PRs and issues, and read code and CI. It cannot push or merge.** `git push` and `gh auth` still run as the user.
 - **If the credentials are unset, `gh` runs as the user** and warns. Then mark anything you post as agent-written. If minting a token fails, `gh` fails rather than post as the user; report the error instead of working around it.
-- **Sign what you write.** End every comment, review, and PR body with the model that wrote it, for example `— Claude Opus 5.5` or `— GPT-6`. One App covers every agent, so the signature is what tells them apart.
+- **Sign what you write.** End every comment, review, and PR body with the model and the harness running it, for example `— Claude Opus 5.5, Claude Code`, `— GPT 6.2 Astra, Codex`, or `— Kimi K3.1, Pi`. One App covers every agent, so the signature is what tells them apart.
 
 ## Suggested multi-agent setup for Claude
 
