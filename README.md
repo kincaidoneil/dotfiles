@@ -28,8 +28,32 @@ Agents comment, review, and open PRs as the `kincaidoneil-agent` GitHub App (App
 
 - **Locally**, `claude-settings.json` sets both variables for Claude Code only, so my own terminal is unaffected. The key is a 1Password reference (`op://…`), read with Touch ID at most about once an hour.
 - **Repos:** a token covers every repo the App is installed on. Add repos under the App's settings, Install App → Configure.
-- **Cloud environments** have no dotfiles. Each one that runs sessions needs `AGENT_GITHUB_APP_ID=5911907` and `AGENT_GITHUB_APP_KEY` set to `op read '<cloud key file op:// reference>' | base64`, using a separate cloud key so it can be revoked alone. It also needs the wrapper on `PATH`.
+- **Remote agents** need their own setup; see below.
 - **Auth uses the App's private key** (Key pairs), not client secrets, which are only for acting as a signed-in user.
+
+#### Remote agents
+
+Remote agent machines, such as Claude Code cloud environments, don't get the full install. `install-agent.sh` installs only what agents need there: the `gh` wrapper (in `/usr/local/bin` when it's writable, otherwise `~/.local/bin`) and `AGENTS.md` as `~/.claude/CLAUDE.md` and `~/.codex/AGENTS.md`. It reads from `main` on GitHub, so push changes before they reach remote agents.
+
+To set up a **Claude Code cloud environment** (at claude.ai/code, under the environment's settings):
+
+1. **Setup script:**
+
+   ```bash
+   curl -fsSL https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/install-agent.sh | bash
+   ```
+
+   It runs as root before the first session, and later sessions reuse a snapshot of the result. The snapshot is rebuilt when the script changes or after about seven days, so new dotfiles commits arrive within a week, or sooner if you edit the script.
+
+2. **Environment variables:** `AGENT_GITHUB_APP_ID=5911907`, and `AGENT_GITHUB_APP_KEY` set to the output of `op read '<cloud key op:// reference>' | base64`. Use the cloud key, not the local one, so a leaked cloud key can be revoked alone. Anyone who can use the environment can read these values.
+3. **Network access:** the default allowlist (Limited, with package managers) includes `raw.githubusercontent.com`, which the setup script needs.
+
+Two limits of the GitHub proxy that cloud sessions go through:
+
+- **GraphQL is blocked whatever the token,** so `gh pr` and `gh issue` fail. Agents use `gh api repos/{owner}/{repo}/...` (REST) instead.
+- **API calls are limited to the repositories attached to the session.** Minting a token calls `/users/kincaidoneil/installation` and `/app/installations/…`, which aren't repository paths. Whether the proxy allows them hasn't been tested yet.
+
+Codex cloud has setup scripts and environment variables too, but its "secrets" are removed before the agent runs, so the App key has to be a plain environment variable there as well.
 
 #### Keys and signing
 
