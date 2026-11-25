@@ -1,4 +1,8 @@
 {
+  "env": {
+    "AGENT_GITHUB_APP_ID": "5911907",
+    "AGENT_GITHUB_APP_KEY": "op://Personal/l34oxmpvggsqa4m2l7xt3ave44/57q3crsnuqlt6dmk7pd2ksub54"
+  },
   "permissions": {
     "defaultMode": "auto"
   },

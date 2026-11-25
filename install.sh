@@ -97,6 +97,9 @@ if [ "$platform" = darwin ] ; then
     unzip \
     wget \
     zsh
+
+  # Reads secrets from 1Password with a Touch ID prompt, such as agent GitHub App keys
+  brew install --cask 1password-cli
 fi
 
 echo "Cloning dotfiles..."
