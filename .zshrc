@@ -118,3 +118,7 @@ esac
 
 # mise
 command -v mise >/dev/null && eval "$(mise activate zsh)"
+
+# Agent gh wrapper: posts as the agent GitHub App when an agent's settings provide its
+# credentials, and runs as me otherwise. Last, so it comes before mise's gh. See AGENTS.md.
+export PATH="$HOME/dotfiles/agent-bin:$PATH"

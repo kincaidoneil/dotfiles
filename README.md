@@ -22,6 +22,15 @@ Before running the install script, run this as root to create a new sudo account
 curl -s https://raw.githubusercontent.com/kincaidoneil/dotfiles/main/add-user.sh | bash -s
 ```
 
+#### Agent GitHub identity
+
+Agents comment, review, and open PRs as the `kincaidoneil-agent` GitHub App (App ID `5911907`), not as me. `agent-bin/gh` wraps `gh`: when `AGENT_GITHUB_APP_ID` and `AGENT_GITHUB_APP_KEY` are set, it runs `gh` with a 1-hour token from `agent-bin/agent-github-token`; otherwise it runs `gh` as me. `.zshrc` puts it first on `PATH`.
+
+- **Locally**, `claude-settings.json` sets both variables for Claude Code only, so my own terminal is unaffected. The key is a 1Password reference (`op://…`), read with Touch ID at most about once an hour.
+- **Repos:** a token covers every repo the App is installed on. Add repos under the App's settings, Install App → Configure.
+- **Cloud environments** have no dotfiles. Each one that runs sessions needs `AGENT_GITHUB_APP_ID=5911907` and `AGENT_GITHUB_APP_KEY` set to `op read '<cloud key file op:// reference>' | base64`, using a separate cloud key so it can be revoked alone. It also needs the wrapper on `PATH`.
+- **Auth uses the App's private key** (Key pairs), not client secrets, which are only for acting as a signed-in user.
+
 #### Keys and signing
 
 Use 1Password to [manage SSH keys](https://developer.1password.com/docs/ssh/) and configure [SSH commit signing](https://developer.1password.com/docs/ssh/git-commit-signing).
