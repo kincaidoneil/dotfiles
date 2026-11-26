@@ -1,41 +1,47 @@
 {
-  "version": 1,
+  "version": 2,
   "skills": {
     "agent-browser": {
       "source": "vercel-labs/agent-browser",
       "sourceType": "github",
       "skillPath": "skills/agent-browser/SKILL.md",
-      "computedHash": "60a9cbe5af176150582c019e16e5d3703a41bb02d88438e881349876120d7944"
+      "computedHash": "a0dfac7503f69bcf529b2660fc79964064c4f179eb65695904ddc45fc0d99d20",
+      "commit": "a67ba089fec5fbfec07346aebad11666463d9799"
     },
     "impeccable": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
       "skillPath": ".agents/skills/impeccable/SKILL.md",
-      "computedHash": "83a6c49c8c5497676262e125cf2d95c8d66a3df7c639f2a64b14151ae36b95e6"
+      "computedHash": "ba5494cb853df34dc3284176083f954829717c42474107d5d01934b2f43930b4",
+      "commit": "2fc5e1459efbbf06d92c7306517c286bf12490cf"
     },
     "logging-best-practices": {
       "source": "neondatabase/mcp-server-neon",
       "sourceType": "github",
       "skillPath": ".agents/skills/logging-best-practices/SKILL.md",
-      "computedHash": "242eae82807c089740d5e1ca47374edebf000c34b41f737b18ff2c9992b07742"
+      "computedHash": "e6d9530d487b47570609e177bacf17a66b90177a356f190545c5430c5d6ef6a5",
+      "commit": "347fad1e785d5da46be4408b329ac7219ef6551f"
     },
     "next-dev-loop": {
       "source": "vercel/next.js",
       "sourceType": "github",
       "skillPath": "skills/next-dev-loop/SKILL.md",
-      "computedHash": "68e70a9270eb02cc9c63cb19ce5106772ce4c140242199f4d90c77f6acb56355"
+      "computedHash": "78ebafaabaa8fd170da34957943f5845436f66c04daf85a93fc759f38a50a4ca",
+      "commit": "cf73f8ca1b6b27a29acf064d401b177f7aa875bb"
     },
     "vercel-composition-patterns": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/composition-patterns/SKILL.md",
-      "computedHash": "f98931159fa9c7fed043bcd18a891a46dcf89ababa38df13a4c5b7b30dc0ce07"
+      "computedHash": "f711ed8b16162eaa712abbcdbbae6c926f86c57e60127735fecc3ad0dd85b3fa",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb"
     },
     "vercel-react-best-practices": {
       "source": "vercel-labs/agent-skills",
       "sourceType": "github",
       "skillPath": "skills/react-best-practices/SKILL.md",
-      "computedHash": "3219a1944e404ffc14d1d9d6aef6dd2e3855b81387ee0a044ccbfe14d34c2357"
+      "computedHash": "7991ed4fbecdac23f47c1a40c243e00a212a9e7f3604db93959b3ae11dffe299",
+      "commit": "5a37a6329fbad3666c3207392a6a7c0110e92efb"
     }
   }
 }
