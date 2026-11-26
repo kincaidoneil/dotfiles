@@ -7,12 +7,6 @@
       "skillPath": "skills/agent-browser/SKILL.md",
       "computedHash": "60a9cbe5af176150582c019e16e5d3703a41bb02d88438e881349876120d7944"
     },
-    "but": {
-      "source": "gitbutlerapp/gitbutler",
-      "sourceType": "github",
-      "skillPath": "crates/but/skill/SKILL.md",
-      "computedHash": "03679a56b0d7e002d8c2fe2e786df1d5e8b7694bb7be541a978e2a2a03360b8b"
-    },
     "impeccable": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",
