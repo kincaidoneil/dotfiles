@@ -13,9 +13,33 @@ Validate your work early and often:
 - Type checking (necessary but not sufficient)
 - Linting and formatting (necessary but not sufficient)
 
-Commit your work to version control. Use GitButler (`but`) only in repositories already set up for it, where `but status` succeeds; elsewhere use plain git. Shepherd PRs through code review (by humans or other agents) to merged and deployed.
+Commit your work to version control with plain git, and use a git worktree for work that runs alongside other agents. Shepherd PRs through code review (by humans or other agents) to merged and deployed.
 
 Unless the repo or the user says otherwise, merge PRs by rebasing, not with a merge commit or a squash. An agent that is the only one working on a branch may force-push it (with `--force-with-lease`) to clean up its commit history before merge.
+
+## GitHub identity
+
+Agents act on GitHub as the `kincaidoneil-agent` GitHub App, so their comments, reviews, and PRs show as `kincaidoneil-agent[bot]`. That way the user can tell agent writing from their own, and can approve PRs an agent opened.
+
+- **`gh` is wrapped.** `~/dotfiles/agent-bin/gh` gives each `gh` command a 1-hour App token when `AGENT_GITHUB_APP_ID` and `AGENT_GITHUB_APP_KEY` are set. If `which gh` doesn't print that path, run `export PATH="$HOME/dotfiles/agent-bin:$PATH"`.
+- **The App can comment, review, open PRs and issues, and read code and CI. It cannot push or merge.** `git push` and `gh auth` still run as the user.
+- **If the credentials are unset, `gh` runs as the user** and warns. Then mark anything you post as agent-written. If minting a token fails, `gh` fails rather than post as the user; report the error instead of working around it.
+- **Sign what you write.** End every comment, review, and PR body with the model and the harness running it, for example `— Claude Opus 5.5, Claude Code`, `— GPT 6.2 Astra, Codex`, or `— Kimi K3.1, Pi`. One App covers every agent, so the signature is what tells them apart.
+
+## Suggested multi-agent setup for Claude
+
+This section applies to Claude agents (such as Claude Code), and the model names are Claude models. For large or risky changes, consider splitting the work across agents with separate roles:
+
+- **Owner (the user)** makes decisions and gives the final go or no-go.
+- **Coordinator** (Opus, high effort) plans the work, writes briefs for other agents, lands changes on main, and updates docs. It delegates only when a task needs it:
+  - **Explorer** (Haiku, or Sonnet when the search needs judgment) finds the relevant files and reports them. It does not draw conclusions.
+  - **Builder** (Opus, in its own worktree) writes the code and tests.
+- **Verification** is a script, not a model. It runs the checks locally and against the real dependencies (for example, the production database engine) and saves the output as evidence.
+- **Reviewer** (Fable) reviews the branch and the verification output independently, then approves or requests changes. It is read-only and never pushes.
+
+The sequence: the builder's branch passes verification, the reviewer approves it, the coordinator lands it on main and runs verification again, the reviewer confirms, and then the branch is pushed to origin.
+
+In short: cheaper models find code, Opus writes it, Fable checks it, and the user decides.
 
 # Memory
 

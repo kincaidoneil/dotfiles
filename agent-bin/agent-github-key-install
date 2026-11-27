@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Copies the agent GitHub App's private key from 1Password into the macOS Keychain, where
+# agent-github-token reads it (see ~/dotfiles/README.md, "Agent GitHub identity"). Run it once
+# per Mac, and again on each Mac after replacing the key. It asks 1Password for approval once.
+set -euo pipefail
+
+ref='op://Personal/l34oxmpvggsqa4m2l7xt3ave44/57q3crsnuqlt6dmk7pd2ksub54'
+item=agent-github-app-key
+
+if ! key=$(op read "$ref" | openssl base64 -A); then
+  echo "agent-github-key-install: could not read the App key from 1Password ($ref)" >&2
+  exit 1
+fi
+# security -i reads the command from stdin, so the key never appears in the process list.
+# -U replaces an existing item.
+printf 'add-generic-password -U -a %s -s %s -w %s\n' "$USER" "$item" "$key" | security -i
+echo "agent-github-key-install: stored the App key in the Keychain item $item"

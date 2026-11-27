@@ -1,4 +1,8 @@
 {
+  "env": {
+    "AGENT_GITHUB_APP_ID": "5911907",
+    "AGENT_GITHUB_APP_KEY": "keychain:agent-github-app-key"
+  },
   "permissions": {
     "defaultMode": "auto"
   },
@@ -14,6 +18,11 @@
       "autoUpdate": true
     }
   },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "autoCompactWindow": 400000
+    }
+  },
   "theme": "light",
   "inputNeededNotifEnabled": true,
   "agentPushNotifEnabled": true,
@@ -23,9 +32,5 @@
       "Bash(process-compose:*) in ~/sideby — routine local dev service orchestration (67 uses this project, defined in package.json dev/dev:up/dev:down scripts)"
     ]
   },
-  "modelSettings": {
-    "claude-opus-5-5": {
-      "autoCompactWindow": 400000
-    }
-  }
+  "preferredNotifChannel": "terminal_bell"
 }

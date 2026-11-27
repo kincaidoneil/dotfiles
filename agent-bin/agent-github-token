@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+# Prints an installation token for the agent GitHub App (see ~/dotfiles/AGENTS.md, "GitHub identity").
+#
+# Reads AGENT_GITHUB_APP_ID (the App ID or client ID) and AGENT_GITHUB_APP_KEY (the App's
+# private key: keychain:<item> for a macOS Keychain item holding base64 of the PEM, the PEM text,
+# or base64 of the PEM). Signs a 10-minute JWT with the key and exchanges it for a 1-hour
+# installation token, which it caches until 5 minutes before expiry.
+# The token covers every repo the App is installed on for AGENT_GITHUB_APP_OWNER.
+set -euo pipefail
+
+: "${AGENT_GITHUB_APP_ID:?AGENT_GITHUB_APP_ID is not set}"
+: "${AGENT_GITHUB_APP_KEY:?AGENT_GITHUB_APP_KEY is not set}"
+owner=${AGENT_GITHUB_APP_OWNER:-kincaidoneil}
+
+umask 077
+cache="${TMPDIR:-/tmp}/agent-github-token-${AGENT_GITHUB_APP_ID}"
+now=$(date +%s)
+if [[ -f "$cache" ]]; then
+  read -r expires token < "$cache" || true
+  if [[ -n "${token:-}" ]] && (( expires - now > 300 )); then
+    printf '%s\n' "$token"
+    exit 0
+  fi
+fi
+
+keyfile=$(mktemp)
+trap 'rm -f "$keyfile"' EXIT
+if [[ "$AGENT_GITHUB_APP_KEY" == keychain:* ]]; then
+  # agent-github-key-install copies the key into this Keychain item.
+  item=${AGENT_GITHUB_APP_KEY#keychain:}
+  if ! key=$(security find-generic-password -s "$item" -w); then
+    echo "agent-github-token: the Keychain has no item $item. Run agent-github-key-install." >&2
+    exit 1
+  fi
+  printf '%s' "$key" | openssl base64 -d -A > "$keyfile"
+elif [[ "$AGENT_GITHUB_APP_KEY" == -----BEGIN* ]]; then
+  printf '%s\n' "$AGENT_GITHUB_APP_KEY" > "$keyfile"
+else
+  printf '%s' "$AGENT_GITHUB_APP_KEY" | openssl base64 -d -A > "$keyfile"
+fi
+
+b64url() { openssl base64 -A | tr '+/' '-_' | tr -d '='; }
+header=$(printf '{"alg":"RS256","typ":"JWT"}' | b64url)
+# iat is backdated a minute for clock drift; GitHub rejects an exp more than 10 minutes out.
+payload=$(printf '{"iat":%d,"exp":%d,"iss":"%s"}' $((now - 60)) $((now + 540)) "$AGENT_GITHUB_APP_ID" | b64url)
+signature=$(printf '%s.%s' "$header" "$payload" | openssl dgst -sha256 -sign "$keyfile" -binary | b64url)
+jwt="$header.$payload.$signature"
+
+github() {
+  curl -sS --fail-with-body \
+    -H "Authorization: Bearer $jwt" \
+    -H 'Accept: application/vnd.github+json' \
+    -H 'X-GitHub-Api-Version: 2022-11-28' \
+    "$@"
+}
+
+if ! installation=$(github "https://api.github.com/users/$owner/installation"); then
+  echo "agent-github-token: could not find the App's installation for $owner: $installation" >&2
+  exit 1
+fi
+installation_id=$(printf '%s' "$installation" | grep -o '"id": *[0-9]*' | head -1 | grep -o '[0-9]*$')
+
+if ! response=$(github -X POST "https://api.github.com/app/installations/$installation_id/access_tokens"); then
+  echo "agent-github-token: GitHub refused to mint a token: $response" >&2
+  exit 1
+fi
+token=$(printf '%s' "$response" | grep -o '"token": *"[^"]*"' | sed 's/.*"\([^"]*\)"$/\1/')
+if [[ -z "$token" ]]; then
+  echo "agent-github-token: no token in GitHub's response" >&2
+  exit 1
+fi
+
+printf '%s %s\n' $((now + 3600)) "$token" > "$cache"
+printf '%s\n' "$token"

@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+# Runs the real gh as the agent GitHub App (see ~/dotfiles/AGENTS.md, "GitHub identity").
+#
+# .zshrc puts this directory first on PATH for every shell. Only agents have the App's
+# credentials set (in their own settings), so only their gh commands get an App token and
+# are authored by the App; in Kincaid's own terminal, gh runs as him. `gh auth` always stays
+# the signed-in user, because git's credential helper may call it, and the App cannot push.
+set -euo pipefail
+
+self_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+real_gh=''
+IFS=: read -ra path_dirs <<< "$PATH"
+for dir in "${path_dirs[@]}"; do
+  [[ -z "$dir" || "$(cd "$dir" 2>/dev/null && pwd)" == "$self_dir" ]] && continue
+  [[ -x "$dir/gh" ]] || continue
+  # A mise shim for gh searches PATH again and would find this wrapper, so skip it.
+  [[ "$(basename "$(realpath "$dir/gh")")" == mise ]] && continue
+  real_gh="$dir/gh"
+  break
+done
+if [[ -z "$real_gh" ]]; then
+  echo 'agent gh: no gh found on PATH' >&2
+  exit 127
+fi
+
+if [[ "${1:-}" == auth ]]; then
+  exec "$real_gh" "$@"
+fi
+
+if [[ -z "${AGENT_GITHUB_APP_ID:-}" || -z "${AGENT_GITHUB_APP_KEY:-}" ]]; then
+  # CLAUDECODE is set in Claude Code's shells. Warn there, but not in Kincaid's terminal.
+  if [[ -n "${CLAUDECODE:-}" ]]; then
+    echo 'agent gh: the agent GitHub App is not configured, so this runs as the signed-in user. Mark anything you post as agent-written.' >&2
+  fi
+  exec "$real_gh" "$@"
+fi
+
+# Fail rather than fall back: a fallback would post as the user without saying so.
+token=$("$self_dir/agent-github-token")
+GH_TOKEN="$token" exec "$real_gh" "$@"
