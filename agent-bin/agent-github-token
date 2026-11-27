@@ -2,8 +2,9 @@
 # Prints an installation token for the agent GitHub App (see ~/dotfiles/AGENTS.md, "GitHub identity").
 #
 # Reads AGENT_GITHUB_APP_ID (the App ID or client ID) and AGENT_GITHUB_APP_KEY (the App's
-# private key: a 1Password op:// reference to it, its PEM text, or base64 of the PEM). Signs a 10-minute JWT with the key and
-# exchanges it for a 1-hour installation token, which it caches until 5 minutes before expiry.
+# private key: keychain:<item> for a macOS Keychain item holding base64 of the PEM, the PEM text,
+# or base64 of the PEM). Signs a 10-minute JWT with the key and exchanges it for a 1-hour
+# installation token, which it caches until 5 minutes before expiry.
 # The token covers every repo the App is installed on for AGENT_GITHUB_APP_OWNER.
 set -euo pipefail
 
@@ -24,13 +25,14 @@ fi
 
 keyfile=$(mktemp)
 trap 'rm -f "$keyfile"' EXIT
-if [[ "$AGENT_GITHUB_APP_KEY" == op://* ]]; then
-  # A 1Password secret reference. op asks for Touch ID, at most about once an hour
-  # because the token is cached.
-  if ! op read --out-file "$keyfile" --force "$AGENT_GITHUB_APP_KEY" > /dev/null; then
-    echo "agent-github-token: could not read the App key from 1Password ($AGENT_GITHUB_APP_KEY)" >&2
+if [[ "$AGENT_GITHUB_APP_KEY" == keychain:* ]]; then
+  # agent-github-key-install copies the key into this Keychain item.
+  item=${AGENT_GITHUB_APP_KEY#keychain:}
+  if ! key=$(security find-generic-password -s "$item" -w); then
+    echo "agent-github-token: the Keychain has no item $item. Run agent-github-key-install." >&2
     exit 1
   fi
+  printf '%s' "$key" | openssl base64 -d -A > "$keyfile"
 elif [[ "$AGENT_GITHUB_APP_KEY" == -----BEGIN* ]]; then
   printf '%s\n' "$AGENT_GITHUB_APP_KEY" > "$keyfile"
 else

@@ -98,7 +98,7 @@ if [ "$platform" = darwin ] ; then
     wget \
     zsh
 
-  # Reads secrets from 1Password with a Touch ID prompt, such as agent GitHub App keys
+  # Reads secrets from 1Password, such as the agent GitHub App key for agent-github-key-install
   brew install --cask 1password-cli
 fi
 
@@ -255,6 +255,15 @@ echo
 # on every install rather than only the first.
 if [ "$CI" != "true" ]; then
   portless service install
+fi
+
+# Agents read the GitHub App key from the Keychain (see README.md, "Agent GitHub identity").
+# This needs the 1Password app signed in with its CLI integration on; otherwise run
+# agent-github-key-install later.
+if [ "$platform" = darwin ] && [ "$CI" != "true" ] && ! security find-generic-password -s agent-github-app-key > /dev/null 2>&1; then
+  echo "Copying the agent GitHub App key into the Keychain..."
+  echo
+  "$dotfiles_dir/agent-bin/agent-github-key-install" || echo "Skipped: run agent-github-key-install once 1Password is set up."
 fi
 
 echo "Completed installation."
